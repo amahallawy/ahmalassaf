@@ -16,6 +16,7 @@
      - Nav (sticky)
      - Footer (deep blue-charcoal)
      - Skip link
+     - Hero (carousel)
 ============================================================ */
 
 /* ============================================================
@@ -65,6 +66,9 @@
 
   /* Shape / Radius */
   --radius-pill: 999px;
+
+  /* Motion */
+  --carousel-duration: 6s;
 }
 
 /* ===== reset ===== */
@@ -198,3 +202,37 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
   top: 16px;
   outline: none;
 }
+
+/* ============ HERO ============ */
+.hero { max-width: 1200px; margin: 32px auto 0; padding: 0 32px; }
+.hero-inner { position: relative; padding: 0; background: transparent; box-shadow: 0 12px 40px rgba(30,85,145,.1); }
+.carousel { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--ink); }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; pointer-events: none; }
+.slide.active { opacity: 1; pointer-events: auto; }
+.slide .img-wrap { position: absolute; inset: 0; overflow: hidden; }
+.slide .img { position: absolute; inset: -5%; background-size: cover; background-position: center; transition: transform 12s ease-out; transform: scale(1.02); }
+.slide.active .img { transform: scale(1.1); }
+.slide .scrim { position: absolute; inset: 0; background:
+  linear-gradient(to top, rgba(10,15,30,.55) 0%, rgba(10,15,30,.2) 30%, transparent 60%); }
+.slide .text-bg { position: absolute; inset: auto 0 0 0; height: 50%; background: linear-gradient(to top left, rgba(10,15,30,.85) 0%, rgba(10,15,30,.65) 35%, rgba(10,15,30,.25) 65%, transparent 95%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); -webkit-mask-image: linear-gradient(to top left, black 0%, black 55%, transparent 95%); mask-image: linear-gradient(to top left, black 0%, black 55%, transparent 95%); pointer-events: none; }
+.slide .content { position: absolute; inset: 0; padding: 56px 64px; color: var(--paper); display: flex; flex-direction: column; justify-content: flex-end; max-width: 70%; z-index: 2; }
+.slide .kicker { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.slide .kicker .line { width: 32px; height: 1px; background: var(--gold); }
+.slide .kicker .label { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold); letter-spacing: 1px; }
+.slide h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 5vw, 64px); line-height: 1.1; margin: 0 0 20px; max-width: 700px; color: var(--paper); }
+.slide .lede { font-family: var(--font-body); font-style: italic; font-size: 19px; line-height: 1.7; opacity: .95; max-width: 580px; margin: 0 0 28px; }
+.slide .meta-row { display: flex; align-items: center; gap: 14px; max-width: 580px; }
+.slide .meta-rule { height: 1px; background: rgba(255,255,255,.35); }
+.slide .meta-rule.short { width: 36px; flex: 0 0 36px; }
+.slide .meta { font-family: var(--font-body); font-style: italic; font-size: 14px; opacity: .9; line-height: 1.5; }
+.slide .meta b { font-style: normal; font-family: var(--font-ui); font-weight: 700; }
+.arrows { position: absolute; inset: 0 24px 0 24px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.arrows button { pointer-events: auto; background: rgba(15,25,45,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--gold); color: var(--paper); width: 48px; height: 48px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: background .3s, transform .3s, border-color .3s; font-family: var(--font-ui); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+.arrows button:hover { background: var(--blue); transform: scale(1.06); border-color: var(--gold); }
+.thumb-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 6; }
+.thumb-dots button { width: 56px; height: 36px; border: 0; padding: 0; background-size: cover; background-position: center; cursor: pointer; opacity: .55; transition: opacity .3s, transform .3s, box-shadow .3s; border-radius: 2px; }
+.thumb-dots button.active { opacity: 1; transform: scale(1.06); box-shadow: 0 0 0 1px var(--gold), 0 4px 16px rgba(0,0,0,.4); }
+.progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.18); z-index: 5; }
+.progress .bar { height: 100%; background: linear-gradient(to left, var(--gold), var(--blue)); width: 0; }
+.progress .bar.run { animation: prog var(--carousel-duration) linear forwards; }
+@keyframes prog { from { width: 0; } to { width: 100%; } }
