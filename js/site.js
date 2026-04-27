@@ -92,6 +92,19 @@
         e.classList.toggle('hidden', !ok);
         if (ok) visible++;
       });
+
+      // mark the first visible essay so it can drop its top border
+      let firstSet = false;
+      essays.forEach(e => {
+        const isHidden = e.classList.contains('hidden');
+        if (!firstSet && !isHidden) {
+          e.classList.add('first-visible');
+          firstSet = true;
+        } else {
+          e.classList.remove('first-visible');
+        }
+      });
+
       if (cntVisible) cntVisible.textContent = toAr(visible);
       if (empty) empty.classList.toggle('show', visible === 0);
 
@@ -110,7 +123,11 @@
     };
 
     const setActive = (group, el) => {
-      document.querySelectorAll(`#${group} .filter-item`).forEach(b => b.classList.toggle('active', b === el));
+      document.querySelectorAll(`#${group} .filter-item`).forEach(b => {
+        const isActive = b === el;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
     };
 
     catFilter.querySelectorAll('.filter-item').forEach(b => {
@@ -130,13 +147,15 @@
       if (yearFilter) setActive('year-filter', yearFilter.querySelector('[data-year="all"]'));
       applyFilters();
     };
+
+    applyFilters();
   };
+
+  // expose helpers/state on a namespace; later init functions extend it
+  window.AHMALASSAF = { toAr };
 
   document.addEventListener('DOMContentLoaded', () => {
     initCarousel();
     initArchiveFilter();
   });
-
-  // expose toAr for future modules in this file
-  window.AHMALASSAF = { toAr };
 })();

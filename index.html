@@ -167,7 +167,7 @@
       <aside class="side-menu">
         <div class="menu-label">تصفية بالقسم</div>
         <div class="filter-list" id="cat-filter">
-          <button class="filter-item all active" data-cat="all">كل المقالات <span class="count">١٢</span></button>
+          <button class="filter-item all active" data-cat="all" aria-pressed="true">كل المقالات <span class="count">١٢</span></button>
           <button class="filter-item" data-cat="qiraah">قراءة وكتابة <span class="count">٢</span></button>
           <button class="filter-item" data-cat="shariah">شريعة وقانون <span class="count">٢</span></button>
           <button class="filter-item" data-cat="siyar">سير وأعلام <span class="count">٥</span></button>
@@ -178,7 +178,7 @@
 
         <div class="menu-label years">تصفية بالسنة</div>
         <div class="filter-list" id="year-filter">
-          <button class="filter-item all active" data-year="all">كل السنوات <span class="count">١٢</span></button>
+          <button class="filter-item all active" data-year="all" aria-pressed="true">كل السنوات <span class="count">١٢</span></button>
           <button class="filter-item" data-year="2026">٢٠٢٦ <span class="count">٨</span></button>
           <button class="filter-item" data-year="2025">٢٠٢٥ <span class="count">٢</span></button>
           <button class="filter-item" data-year="2024">٢٠٢٤ <span class="count">٢</span></button>
@@ -199,9 +199,9 @@
         <div class="essay" data-cat="mawasim" data-year="2024"><div class="essay-num">١١</div><div><div class="essay-cat">مواسم ومجتمع</div><div class="essay-title">في معنى الموسم: <em>قراءة في الزمن الاجتماعي</em></div></div><div class="essay-meta"><b>١٤ يونيو ٢٠٢٤</b>٦ دقائق · ١٬٣٨٠ كلمة</div></div>
         <div class="essay" data-cat="siyasah" data-year="2024"><div class="essay-num">١٢</div><div><div class="essay-cat">سياسة واقتصاد</div><div class="essay-title">عن الاقتصاد الريعي</div></div><div class="essay-meta"><b>٢ فبراير ٢٠٢٤</b>١٠ دقائق · ٢٬٤٠٠ كلمة</div></div>
 
-        <div class="archive-empty" id="empty">لا توجد مقالات تطابق اختيارك. <span style="cursor:pointer; color:var(--blue); border-bottom: 1px solid var(--gold);" onclick="AHMALASSAF.resetFilters()">إعادة الضبط</span></div>
+        <div class="archive-empty" id="empty">لا توجد مقالات تطابق اختيارك. <button class="reset-link" onclick="AHMALASSAF.resetFilters()">إعادة الضبط</button></div>
 
-        <div class="archive-more"><a>تصفّح الأرشيف الكامل ←</a></div>
+        <div class="archive-more"><a href="#archive">تصفّح الأرشيف الكامل ←</a></div>
       </div>
 
     </div>
