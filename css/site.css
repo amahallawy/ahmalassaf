@@ -66,6 +66,9 @@
 
   /* Shape / Radius */
   --radius-pill: 999px;
+
+  /* Motion */
+  --carousel-duration: 6s;
 }
 
 /* ===== reset ===== */
@@ -231,5 +234,5 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .thumb-dots button.active { opacity: 1; transform: scale(1.06); box-shadow: 0 0 0 1px var(--gold), 0 4px 16px rgba(0,0,0,.4); }
 .progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.18); z-index: 5; }
 .progress .bar { height: 100%; background: linear-gradient(to left, var(--gold), var(--blue)); width: 0; }
-.progress .bar.run { animation: prog 6s linear forwards; }
+.progress .bar.run { animation: prog var(--carousel-duration) linear forwards; }
 @keyframes prog { from { width: 0; } to { width: 100%; } }

@@ -19,6 +19,8 @@
     const progBar = carEl.querySelector('.progress .bar');
     const prevBtn = carEl.querySelector('#prev');
     const nextBtn = carEl.querySelector('#next');
+    // Must stay in sync with --carousel-duration in css/site.css
+    const AUTOPLAY_MS = 6000;
     let i = 0, timer;
 
     const restartProgress = () => {
@@ -37,7 +39,7 @@
 
     const start = () => {
       stop();
-      timer = setInterval(() => go(i + 1), 6000);
+      timer = setInterval(() => go(i + 1), AUTOPLAY_MS);
     };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
@@ -45,8 +47,9 @@
     if (nextBtn) nextBtn.addEventListener('click', () => { go(i + 1); start(); });
     if (prevBtn) prevBtn.addEventListener('click', () => { go(i - 1); start(); });
 
-    carEl.addEventListener('mouseenter', stop);
-    carEl.addEventListener('mouseleave', start);
+    let mouseInside = false;
+    carEl.addEventListener('mouseenter', () => { mouseInside = true; stop(); });
+    carEl.addEventListener('mouseleave', () => { mouseInside = false; start(); });
 
     // keyboard navigation when carousel is focused
     carEl.addEventListener('keydown', (e) => {
@@ -56,7 +59,7 @@
       else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); start(); }
     });
     carEl.addEventListener('focus', stop);
-    carEl.addEventListener('blur', start);
+    carEl.addEventListener('blur', () => { if (!mouseInside) start(); });
 
     // honor reduced motion: don't autoplay
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
