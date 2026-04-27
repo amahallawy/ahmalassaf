@@ -18,6 +18,8 @@
   --gold-deep:   #A87A2E;
   --gold-soft:   rgba(201,151,79,.18);
   --footer-bg:   #152033;
+
+  /* Backgrounds / Gradients */
   --paper-cream: linear-gradient(135deg, #fbf8f0 0%, #ffffff 100%);
 
   /* Typography */
@@ -25,7 +27,7 @@
   --font-ui:      'Cairo', system-ui, sans-serif;
   --font-body:    'Amiri', Georgia, serif;
 
-  /* Spacing (8-pt) */
+  /* Spacing (4-pt base) */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -40,6 +42,8 @@
   --max-prose:   640px;
   --max-content: 880px;
   --max-page:    1200px;
+
+  /* Shape / Radius */
   --radius-pill: 999px;
 }
 
@@ -57,7 +61,6 @@ body {
   font-family: var(--font-ui);
   direction: rtl;
   text-align: right;
-  font-feature-settings: "tnum" 1;
   -webkit-font-smoothing: antialiased;
 }
 
