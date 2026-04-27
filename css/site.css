@@ -1,4 +1,24 @@
 /* ============================================================
+   TABLE OF CONTENTS
+
+   FOUNDATION
+     - Tokens (palette, gradients, typography, spacing, layout, shape)
+     - Reset
+     - Base body
+     - Reduced motion
+     - Focus rings
+     - sr-only utility
+     - .container utility
+     - Inner-page utilities (.page-title, .page-body, .page-back)
+
+   COMPONENTS
+     - Masthead (header)
+     - Nav (sticky)
+     - Footer (deep blue-charcoal)
+     - Skip link
+============================================================ */
+
+/* ============================================================
    ahmalassaf.com — site styles
    Foundation: tokens, fonts, reset, base typography.
    See docs/design-spec.md §5 for design system rationale.
@@ -98,6 +118,11 @@ body {
   padding: 0 var(--space-8);
 }
 
+/* ===== inner-page utilities ===== */
+.page-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 5vw, 56px); color: var(--ink); margin: 0 0 var(--space-6); }
+.page-body  { font-family: var(--font-body); font-style: italic; font-size: 19px; line-height: 1.95; color: var(--ink); max-width: var(--max-prose); }
+.page-back  { font-family: var(--font-ui); font-weight: 700; color: var(--blue); border-bottom: 1px solid var(--gold); text-decoration: none; }
+
 /* ============================================================
    COMPONENTS
 ============================================================ */
@@ -118,7 +143,8 @@ body {
 .mast-social { display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-end; }
 .mast-social a { color: var(--ink); text-decoration: none; cursor: pointer; }
 .mast-social a .ic { display: flex; width: 38px; height: 38px; border-radius: 50%; background: var(--gold-soft); color: var(--gold-deep); align-items: center; justify-content: center; transition: background .3s, color .3s, transform .3s, box-shadow .3s; }
-.mast-social a:hover .ic, .search-wrap.open #searchTrigger .ic { background: var(--blue); color: var(--paper); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(30,85,145,.25); }
+/* Phase 6 will add `.search-wrap.open #searchTrigger .ic` to this hover state for the search popover open state */
+.mast-social a:hover .ic { background: var(--blue); color: var(--paper); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(30,85,145,.25); }
 
 /* ============ NAV ============ */
 .nav { padding: 0; position: sticky; top: 0; z-index: 10; background: rgba(249,249,249,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(74,74,74,.1); }
