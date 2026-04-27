@@ -61,10 +61,83 @@
     </div>
   </nav>
 
-  <!-- HOME SECTIONS GO HERE (added in subsequent phases) -->
-  <main id="main-content" style="min-height: 50vh; padding: var(--space-16) var(--space-8); text-align: center;">
+  <!-- ============ HERO CAROUSEL ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="carousel" id="car" tabindex="0" role="region" aria-roledescription="carousel" aria-label="آخر المقالات">
+
+        <div class="slide active">
+          <div class="img-wrap">
+            <div class="img" style="background-image:url('https://images.unsplash.com/photo-1568667256549-094345857637?w=1800&auto=format&q=85')"></div>
+            <div class="scrim"></div>
+            <div class="text-bg"></div>
+          </div>
+          <div class="content">
+            <div class="kicker"><span class="line"></span><span class="label">سياسة واقتصاد</span></div>
+            <h2>أعداد وزارية</h2>
+            <p class="lede">قراءة في التعيينات الوزارية الأخيرة ومدلولاتها على بنية القرار، وفي ما تخفيه من تحوّلات في موازين الإدارة والسياسة.</p>
+            <div class="meta-row">
+              <div class="meta-rule short"></div>
+              <div class="meta"><b>٢٥ أبريل ٢٠٢٦</b> · ٧ دقائق قراءة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="img-wrap">
+            <div class="img" style="background-image:url('https://images.unsplash.com/photo-1532012197267-da84d127e765?w=1800&auto=format&q=85')"></div>
+            <div class="scrim"></div>
+            <div class="text-bg"></div>
+          </div>
+          <div class="content">
+            <div class="kicker"><span class="line"></span><span class="label">سير وأعلام</span></div>
+            <h2>دلائل على العراقة الأسرية</h2>
+            <p class="lede">في الإرث الذي تتركه الأسر، وفي السمات الباقية على رغم تعاقب الأجيال، وفي العلامات التي يقرؤها المتأمل في الناس.</p>
+            <div class="meta-row">
+              <div class="meta-rule short"></div>
+              <div class="meta"><b>١٩ أبريل ٢٠٢٦</b> · ٩ دقائق قراءة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="img-wrap">
+            <div class="img" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1800&auto=format&q=85')"></div>
+            <div class="scrim"></div>
+            <div class="text-bg"></div>
+          </div>
+          <div class="content">
+            <div class="kicker"><span class="line"></span><span class="label">قراءة وكتابة</span></div>
+            <h2>المدوَّنات في العصر الرقمي</h2>
+            <p class="lede">عن مكانة المدوَّنة الفردية بين منصّات النشر السريع والكتاب المطبوع، وعن قارئها الذي لم تنقرض فصيلته بعد.</p>
+            <div class="meta-row">
+              <div class="meta-rule short"></div>
+              <div class="meta"><b>١٧ أبريل ٢٠٢٦</b> · ٨ دقائق قراءة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrows">
+          <button id="next" aria-label="التالي">›</button>
+          <button id="prev" aria-label="السابق">‹</button>
+        </div>
+
+        <div class="thumb-dots" id="dots">
+          <button class="active" data-i="0" style="background-image:url('https://images.unsplash.com/photo-1568667256549-094345857637?w=200&auto=format&q=85')"></button>
+          <button data-i="1" style="background-image:url('https://images.unsplash.com/photo-1532012197267-da84d127e765?w=200&auto=format&q=85')"></button>
+          <button data-i="2" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=200&auto=format&q=85')"></button>
+        </div>
+
+        <div class="progress"><div class="bar run" id="progBar"></div></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- placeholder for sections coming in subsequent phases -->
+  <main id="main-content" style="min-height: 30vh; padding: var(--space-16) var(--space-8); text-align: center;">
     <p style="font-family: var(--font-body); font-style: italic; color: var(--ink-soft);">
-      محتوى الصفحة سيُضاف في المراحل التالية.
+      باقي أقسام الصفحة سيُضاف في المراحل التالية.
     </p>
   </main>
 
@@ -99,5 +172,6 @@
     </div>
   </footer>
 
+  <script src="js/site.js" defer></script>
 </body>
 </html>
