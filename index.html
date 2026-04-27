@@ -10,7 +10,7 @@
 <body>
 
   <!-- skip link (visible on keyboard focus) -->
-  <a href="#main-content" class="skip-link">تخطّي إلى الأرشيف</a>
+  <a href="#archive" class="skip-link">تخطّي إلى الأرشيف</a>
 
   <!-- ============ MASTHEAD ============ -->
   <header class="masthead">
@@ -134,12 +134,78 @@
     </div>
   </section>
 
-  <!-- placeholder for sections coming in subsequent phases -->
-  <main id="main-content" style="min-height: 30vh; padding: var(--space-16) var(--space-8); text-align: center;">
-    <p style="font-family: var(--font-body); font-style: italic; color: var(--ink-soft);">
-      باقي أقسام الصفحة سيُضاف في المراحل التالية.
-    </p>
-  </main>
+  <!-- ============ PUBLICATION CREDO (uses the quote-card visual language) ============ -->
+  <section class="quote-section">
+    <div class="q-intro">
+      <div class="line"></div>
+      <div class="center"><div class="diamond"></div><span class="label">عن هذا المكان</span><div class="diamond"></div></div>
+      <div class="line"></div>
+    </div>
+    <div class="quote-card">
+      <span class="corner tr"></span><span class="corner tl"></span><span class="corner br"></span><span class="corner bl"></span>
+      <span class="open-mark">«</span>
+      <p class="body">هنا تجدُ <em>مقالاتٍ هادئةً</em> في القراءة والكتابة، وفي سير الأعلام، وفي ما يستحقُّ التأمُّل من شؤون <b>الناس والكُتب</b>.</p>
+      <span class="close-mark">»</span>
+    </div>
+    <div class="q-outro"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  </section>
+
+  <!-- ============ ARCHIVE ============ -->
+  <section class="archive-section" id="archive">
+    <div class="archive-header">
+      <div class="title-stack">
+        <div class="kicker">للتصفّح والاطّلاع</div>
+        <h2 id="ah-title">كل المقالات</h2>
+      </div>
+      <div class="counter">
+        تظهر <span class="num" id="cnt-visible">١٢</span> من أصل <span class="total" id="cnt-total">١٢</span> مقالاً
+      </div>
+    </div>
+
+    <div class="archive-layout">
+
+      <aside class="side-menu">
+        <div class="menu-label">تصفية بالقسم</div>
+        <div class="filter-list" id="cat-filter">
+          <button class="filter-item all active" data-cat="all">كل المقالات <span class="count">١٢</span></button>
+          <button class="filter-item" data-cat="qiraah">قراءة وكتابة <span class="count">٢</span></button>
+          <button class="filter-item" data-cat="shariah">شريعة وقانون <span class="count">٢</span></button>
+          <button class="filter-item" data-cat="siyar">سير وأعلام <span class="count">٥</span></button>
+          <button class="filter-item" data-cat="siyasah">سياسة واقتصاد <span class="count">٢</span></button>
+          <button class="filter-item" data-cat="mawasim">مواسم ومجتمع <span class="count">١</span></button>
+          <button class="filter-item" data-cat="idarah">إدارة وتربية <span class="count">٠</span></button>
+        </div>
+
+        <div class="menu-label years">تصفية بالسنة</div>
+        <div class="filter-list" id="year-filter">
+          <button class="filter-item all active" data-year="all">كل السنوات <span class="count">١٢</span></button>
+          <button class="filter-item" data-year="2026">٢٠٢٦ <span class="count">٨</span></button>
+          <button class="filter-item" data-year="2025">٢٠٢٥ <span class="count">٢</span></button>
+          <button class="filter-item" data-year="2024">٢٠٢٤ <span class="count">٢</span></button>
+        </div>
+      </aside>
+
+      <div class="essays-col">
+        <div class="essay" data-cat="siyasah" data-year="2026"><div class="essay-num">٠١</div><div><div class="essay-cat">سياسة واقتصاد</div><div class="essay-title">أعداد وزارية</div></div><div class="essay-meta"><b>٢٥ أبريل ٢٠٢٦</b>٧ دقائق · ١٬٦٤٠ كلمة</div></div>
+        <div class="essay" data-cat="siyar" data-year="2026"><div class="essay-num">٠٢</div><div><div class="essay-cat">سير وأعلام</div><div class="essay-title">دلائل على العراقة الأسرية</div></div><div class="essay-meta"><b>١٩ أبريل ٢٠٢٦</b>٩ دقائق · ٢٬١٤٠ كلمة</div></div>
+        <div class="essay" data-cat="qiraah" data-year="2026"><div class="essay-num">٠٣</div><div><div class="essay-cat">قراءة وكتابة</div><div class="essay-title">المدوَّنات في العصر الرقمي</div></div><div class="essay-meta"><b>١٧ أبريل ٢٠٢٦</b>٨ دقائق · ١٬٩٢٠ كلمة</div></div>
+        <div class="essay" data-cat="shariah" data-year="2026"><div class="essay-num">٠٤</div><div><div class="essay-cat">شريعة وقانون</div><div class="essay-title">أعلام التفكير القانوني</div></div><div class="essay-meta"><b>١٦ أبريل ٢٠٢٦</b>١٠ دقائق · ٢٬٣٦٠ كلمة</div></div>
+        <div class="essay" data-cat="siyar" data-year="2026"><div class="essay-num">٠٥</div><div><div class="essay-cat">سير وأعلام</div><div class="essay-title">من مسائل العراقة</div></div><div class="essay-meta"><b>١٤ أبريل ٢٠٢٦</b>٨ دقائق · ١٬٨٤٠ كلمة</div></div>
+        <div class="essay" data-cat="siyar" data-year="2026"><div class="essay-num">٠٦</div><div><div class="essay-cat">سير وأعلام</div><div class="essay-title">أبو نجم: <em>روح عنيزة!</em></div></div><div class="essay-meta"><b>٦ أبريل ٢٠٢٦</b>١١ دقيقة · ٢٬٥٨٠ كلمة</div></div>
+        <div class="essay" data-cat="siyar" data-year="2026"><div class="essay-num">٠٧</div><div><div class="essay-cat">سير وأعلام</div><div class="essay-title">الملك خالد: <em>ملك خالد!</em></div></div><div class="essay-meta"><b>٤ أبريل ٢٠٢٦</b>٩ دقائق · ٢٬١٠٠ كلمة</div></div>
+        <div class="essay" data-cat="siyar" data-year="2026"><div class="essay-num">٠٨</div><div><div class="essay-cat">سير وأعلام</div><div class="essay-title">سيف الدين السمنودي: <em>طبيب الفيصل</em></div></div><div class="essay-meta"><b>٢٨ مارس ٢٠٢٦</b>١٢ دقيقة · ٢٬٨٤٠ كلمة</div></div>
+        <div class="essay" data-cat="qiraah" data-year="2025"><div class="essay-num">٠٩</div><div><div class="essay-cat">قراءة وكتابة</div><div class="essay-title">المثقف بين العزلة والاشتباك</div></div><div class="essay-meta"><b>١٢ ديسمبر ٢٠٢٥</b>٨ دقائق · ١٬٩٢٠ كلمة</div></div>
+        <div class="essay" data-cat="shariah" data-year="2025"><div class="essay-num">١٠</div><div><div class="essay-cat">شريعة وقانون</div><div class="essay-title">قراءة في «نظام الحكم» للماوردي</div></div><div class="essay-meta"><b>٣ أكتوبر ٢٠٢٥</b>٩ دقائق · ٢٬١٤٠ كلمة</div></div>
+        <div class="essay" data-cat="mawasim" data-year="2024"><div class="essay-num">١١</div><div><div class="essay-cat">مواسم ومجتمع</div><div class="essay-title">في معنى الموسم: <em>قراءة في الزمن الاجتماعي</em></div></div><div class="essay-meta"><b>١٤ يونيو ٢٠٢٤</b>٦ دقائق · ١٬٣٨٠ كلمة</div></div>
+        <div class="essay" data-cat="siyasah" data-year="2024"><div class="essay-num">١٢</div><div><div class="essay-cat">سياسة واقتصاد</div><div class="essay-title">عن الاقتصاد الريعي</div></div><div class="essay-meta"><b>٢ فبراير ٢٠٢٤</b>١٠ دقائق · ٢٬٤٠٠ كلمة</div></div>
+
+        <div class="archive-empty" id="empty">لا توجد مقالات تطابق اختيارك. <span style="cursor:pointer; color:var(--blue); border-bottom: 1px solid var(--gold);" onclick="AHMALASSAF.resetFilters()">إعادة الضبط</span></div>
+
+        <div class="archive-more"><a>تصفّح الأرشيف الكامل ←</a></div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- ============ FOOTER ============ -->
   <footer>
