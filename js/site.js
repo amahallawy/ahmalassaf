@@ -172,6 +172,89 @@
     }
   };
 
+  // ============ SEARCH POPOVER ============
+  const initSearchPopover = () => {
+    const wrap = document.getElementById('searchWrap');
+    if (!wrap) return;
+    const trigger = document.getElementById('searchTrigger');
+    const input = document.getElementById('searchInput');
+    const resultsEl = document.getElementById('searchResults');
+    const countEl = document.getElementById('searchCount');
+
+    // build searchable index from existing archive entries
+    const essays = Array.from(document.querySelectorAll('.essay')).map(e => {
+      const titleEl = e.querySelector('.essay-title');
+      const catEl = e.querySelector('.essay-cat');
+      const metaB = e.querySelector('.essay-meta b');
+      const metaText = e.querySelector('.essay-meta');
+      return {
+        title: titleEl ? titleEl.textContent.trim() : '',
+        cat:   catEl   ? catEl.textContent.trim()   : '',
+        date:  metaB   ? metaB.textContent.trim()   : '',
+        meta:  metaText ? metaText.textContent.replace(metaB?.textContent || '', '').trim() : '',
+      };
+    });
+
+    const open = () => {
+      wrap.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      setTimeout(() => input.focus(), 100);
+      render('');
+    };
+    const close = () => {
+      wrap.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      input.value = '';
+    };
+    const toggle = () => wrap.classList.contains('open') ? close() : open();
+
+    const highlight = (text, q) => {
+      if (!q) return text;
+      const i = text.indexOf(q);
+      if (i < 0) return text;
+      return text.slice(0, i) + '<em>' + text.slice(i, i + q.length) + '</em>' + text.slice(i + q.length);
+    };
+
+    const render = (q) => {
+      const ql = q.trim().toLowerCase();
+      const filtered = ql === '' ? essays : essays.filter(e =>
+        e.title.toLowerCase().includes(ql) ||
+        e.cat.toLowerCase().includes(ql)
+      );
+      countEl.textContent = toAr(filtered.length);
+
+      if (filtered.length === 0) {
+        resultsEl.innerHTML = '<div class="empty">لا نتائج تطابق «' + q + '»</div>';
+        return;
+      }
+
+      resultsEl.innerHTML = filtered.slice(0, 8).map(e => `
+        <a class="result">
+          <div class="cat">${e.cat}</div>
+          <div class="title">${highlight(e.title, q.trim())}</div>
+          <div class="result-meta">${e.date} · ${e.meta}</div>
+        </a>
+      `).join('');
+    };
+
+    trigger.addEventListener('click', (e) => { e.preventDefault(); toggle(); });
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+    input.addEventListener('input', () => render(input.value));
+    input.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    document.addEventListener('click', (e) => {
+      if (wrap.classList.contains('open') && !wrap.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && wrap.classList.contains('open')) close();
+      if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        open();
+      }
+    });
+  };
+
   // expose helpers/state on a namespace; later init functions extend it
   window.AHMALASSAF = { toAr };
 
@@ -179,5 +262,6 @@
     initCarousel();
     initArchiveFilter();
     initFormSuccessStates();
+    initSearchPopover();
   });
 })();
