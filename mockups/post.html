@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>أعداد وزارية ـ مدوَّنة العسَّاف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1E5591;
+    --blue-deep: #143E69;
+    --bg: #F9F9F9;
+    --paper: #FFFFFF;
+    --ink: #4A4A4A;
+    --ink-soft: #6B6358;
+    --gold: #C9974F;
+    --gold-deep: #A87A2E;
+    --gold-soft: rgba(201,151,79,.18);
+
+    --font-display: 'Aref Ruqaa', 'Amiri', serif;
+    --font-ui: 'Cairo', system-ui, sans-serif;
+    --font-body: 'Amiri', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); direction: rtl; text-align: right; font-feature-settings: "tnum" 1; }
+
+  /* ============ READING PROGRESS BAR ============ */
+  .reading-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(74,74,74,.06); z-index: 100; }
+  .reading-progress .bar { height: 100%; width: 0; background: linear-gradient(to left, var(--gold), var(--blue)); transition: width .15s ease; }
+
+  /* ============ MASTHEAD (compact for post pages) ============ */
+  .masthead { padding: 28px 0 18px; position: relative; background: var(--paper); }
+  .masthead::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(to left, transparent, var(--gold) 15%, var(--gold) 85%, transparent); opacity: .8; }
+  .masthead::before { content: ''; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; background: var(--blue); border: 1.5px solid var(--gold); transform: translateX(-50%) rotate(45deg); z-index: 2; }
+
+  .mast-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 32px; }
+  .mast-back { font-family: var(--font-ui); font-weight: 600; font-size: 13px; color: var(--ink); text-decoration: none; cursor: pointer; transition: color .25s, gap .25s; display: inline-flex; align-items: center; gap: 8px; }
+  .mast-back::before { content: ''; width: 24px; height: 1px; background: var(--gold); transition: width .25s; }
+  .mast-back:hover { color: var(--blue); }
+  .mast-back:hover::before { width: 40px; }
+  .mast-title { text-align: center; }
+  .mast-title .word { font-family: var(--font-display); font-weight: 700; font-size: 36px; line-height: 1; color: var(--ink); }
+  .mast-title .sub { font-family: var(--font-body); font-style: italic; font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+  .mast-social { display: flex; flex-direction: row; gap: 12px; align-items: center; justify-content: flex-end; }
+  .mast-social a { color: var(--ink); text-decoration: none; cursor: pointer; }
+  .mast-social a .ic { display: flex; width: 36px; height: 36px; border-radius: 50%; background: var(--gold-soft); color: var(--gold-deep); align-items: center; justify-content: center; transition: background .3s, color .3s, transform .3s; }
+  .mast-social a:hover .ic { background: var(--blue); color: var(--paper); transform: translateY(-2px); }
+
+  /* ============ NAV ============ */
+  .nav { padding: 0; position: sticky; top: 0; z-index: 10; background: rgba(249,249,249,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(74,74,74,.1); }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: center; gap: 0; flex-wrap: wrap; }
+  .nav-item { position: relative; padding: 18px 22px; cursor: pointer; font-family: var(--font-ui); font-weight: 600; font-size: 15px; color: var(--ink); text-decoration: none; transition: color .35s; }
+  .nav-item:hover { color: var(--blue); }
+  .nav-item.active { color: var(--blue); font-weight: 700; }
+  .nav-item::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 0; height: 2px; background: var(--gold); transition: width .4s ease, left .4s ease; }
+  .nav-item:hover::after, .nav-item.active::after { width: 60%; left: 20%; }
+  .nav-item.active::after { background: linear-gradient(to left, var(--gold), var(--blue), var(--gold)); height: 3px; }
+
+  /* ============ BREADCRUMB ============ */
+  .crumb { max-width: 1200px; margin: 32px auto 0; padding: 0 32px; font-family: var(--font-ui); font-weight: 500; font-size: 14px; color: var(--ink-soft); }
+  .crumb a { color: var(--ink-soft); text-decoration: none; cursor: pointer; transition: color .25s; }
+  .crumb a:hover { color: var(--blue); }
+  .crumb .sep { color: var(--gold); margin: 0 10px; opacity: .5; }
+  .crumb .current { color: var(--ink); font-weight: 600; }
+
+  /* ============ ARTICLE HEAD ============ */
+  .article-head { max-width: 880px; margin: 32px auto 0; padding: 0 32px; }
+  .article-head .kicker { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .article-head .kicker .line { width: 28px; height: 1px; background: var(--gold); }
+  .article-head .kicker .label { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold-deep); letter-spacing: .5px; }
+  .article-head h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 5.5vw, 64px); line-height: 1.1; color: var(--ink); margin: 0 0 20px; letter-spacing: 0; }
+  .article-head .lede { font-family: var(--font-body); font-style: italic; font-size: clamp(20px, 2.4vw, 24px); line-height: 1.6; color: var(--ink-soft); margin: 0 0 28px; max-width: 760px; }
+
+  .article-meta { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 18px 0; border-top: 1px solid rgba(201,151,79,.4); border-bottom: 1px solid rgba(201,151,79,.4); }
+  .article-meta .item { display: flex; align-items: center; gap: 10px; font-family: var(--font-ui); font-size: 14px; color: var(--ink); }
+  .article-meta .item .ic { color: var(--gold-deep); display: flex; align-items: center; }
+  .article-meta .item b { font-weight: 700; }
+  .article-meta .author { display: flex; align-items: center; gap: 12px; }
+  .article-meta .author .portrait { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 1px solid var(--gold); }
+  .article-meta .author .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .article-meta .author .name { font-family: var(--font-ui); font-weight: 700; font-size: 14px; color: var(--ink); }
+  .article-meta .spacer { flex: 1; }
+
+  /* ============ TTS VOICE READER ============ */
+  .tts-player { max-width: 880px; margin: 24px auto 0; padding: 0 32px; }
+  .tts-player .inner { display: flex; align-items: center; gap: 18px; padding: 16px 22px; background: var(--paper); border: 1px solid rgba(74,74,74,.08); border-right: 3px solid var(--gold); flex-wrap: wrap; transition: border-color .25s, box-shadow .25s; }
+  .tts-player.playing .inner { border-right-color: var(--blue); box-shadow: 0 4px 20px rgba(30,85,145,.1); }
+  .tts-player .play-btn { width: 46px; height: 46px; border-radius: 50%; background: var(--blue); color: var(--paper); border: 1.5px solid var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .25s; flex-shrink: 0; }
+  .tts-player .play-btn:hover { background: var(--gold-deep); border-color: var(--gold); }
+  .tts-player .play-btn .pause-icon { display: none; }
+  .tts-player.playing .play-btn .play-icon { display: none; }
+  .tts-player.playing .play-btn .pause-icon { display: block; }
+  .tts-player .info { flex: 1; min-width: 200px; }
+  .tts-player .info b { font-family: var(--font-ui); font-weight: 700; font-size: 15px; color: var(--ink); display: block; }
+  .tts-player .info .sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+  .tts-player .progress-bar { flex: 2; height: 4px; background: rgba(74,74,74,.1); position: relative; cursor: pointer; min-width: 160px; }
+  .tts-player .progress-bar .filled { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(to left, var(--gold), var(--blue)); transition: width .3s ease; }
+  .tts-player .speed { font-family: var(--font-ui); font-weight: 600; font-size: 13px; color: var(--ink); border: 1px solid rgba(74,74,74,.15); padding: 7px 14px; cursor: pointer; background: var(--bg); transition: all .25s; min-width: 64px; text-align: center; flex-shrink: 0; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; letter-spacing: .3px; }
+  .tts-player .speed:hover { background: var(--gold-soft); border-color: var(--gold); color: var(--gold-deep); }
+  .tts-player .err-note { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); display: none; }
+  .tts-player.unsupported .play-btn, .tts-player.unsupported .speed, .tts-player.unsupported .progress-bar { opacity: .35; pointer-events: none; }
+  .tts-player.unsupported .err-note { display: inline; }
+
+  /* ============ FEATURED IMAGE ============ */
+  .featured-img { max-width: 1200px; margin: 40px auto 0; padding: 0 32px; }
+  .featured-img .wrap { aspect-ratio: 21/9; overflow: hidden; background: var(--ink); position: relative; }
+  .featured-img .wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .featured-img .caption { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); margin-top: 12px; padding-right: 8px; }
+
+  /* ============ BODY LAYOUT ============ */
+  .article-body-wrap { max-width: 1200px; margin: 56px auto 0; padding: 0 32px; display: grid; grid-template-columns: 200px 1fr 80px; gap: 48px; align-items: start; }
+
+  /* TOC sidebar */
+  .toc { position: sticky; top: 80px; }
+  .toc .label { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--gold-deep); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(201,151,79,.3); letter-spacing: .3px; }
+  .toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+  .toc li { counter-increment: toc; padding: 8px 0; position: relative; }
+  .toc a { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-ui); font-size: 14px; color: var(--ink-soft); text-decoration: none; line-height: 1.4; transition: color .25s, padding .25s; cursor: pointer; }
+  .toc a::before { content: counter(toc, decimal); font-family: var(--font-ui); font-weight: 600; font-size: 12px; color: var(--gold); flex-shrink: 0; min-width: 18px; }
+  .toc a:hover { color: var(--blue); padding-right: 4px; }
+  .toc li.active a { color: var(--blue); font-weight: 700; padding-right: 8px; }
+  .toc li.active a::before { color: var(--blue); }
+  .toc li.active::before { content: ''; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); width: 4px; height: 16px; background: linear-gradient(to bottom, var(--gold), var(--blue)); }
+
+  /* article content column */
+  .article-content { font-family: var(--font-body); font-size: 19px; line-height: 2.0; color: var(--ink); }
+  .article-content p { margin: 0 0 24px; }
+  .article-content h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.4vw, 36px); line-height: 1.2; color: var(--ink); margin: 56px 0 20px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,151,79,.35); position: relative; }
+  .article-content h2::before { content: ''; position: absolute; right: 0; bottom: -1px; width: 56px; height: 3px; background: linear-gradient(to left, var(--gold), var(--blue)); }
+  .article-content h3 { font-family: var(--font-ui); font-weight: 700; font-size: 22px; line-height: 1.3; color: var(--ink); margin: 36px 0 14px; }
+  .article-content a { color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; transition: color .25s, border-color .25s; }
+  .article-content a:hover { color: var(--gold-deep); border-bottom-color: var(--blue); }
+  .article-content em { font-style: italic; color: var(--ink); }
+  .article-content strong { font-weight: 700; color: var(--ink); }
+  .article-content ul, .article-content ol { padding-right: 28px; margin: 0 0 24px; }
+  .article-content li { margin-bottom: 8px; line-height: 1.95; }
+  .article-content li::marker { color: var(--gold-deep); }
+  .article-content blockquote { margin: 32px 0; padding: 24px 32px; background: var(--paper); border-right: 4px solid var(--gold); position: relative; font-style: italic; }
+  .article-content blockquote p { margin: 0; font-size: 21px; line-height: 1.7; color: var(--ink); }
+  .article-content blockquote cite { font-family: var(--font-ui); font-style: normal; font-size: 14px; font-weight: 600; color: var(--ink-soft); display: block; margin-top: 12px; }
+
+  /* pull quote — full width breakout */
+  .article-content .pull-quote { margin: 56px -32px; padding: 48px 64px; background: linear-gradient(135deg, var(--paper) 0%, #fbf8f0 100%); border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold); position: relative; text-align: center; }
+  .article-content .pull-quote::before { content: '«'; position: absolute; top: 8px; right: 32px; font-family: var(--font-body); font-size: 64px; color: var(--blue); opacity: .2; line-height: 1; }
+  .article-content .pull-quote::after { content: '»'; position: absolute; bottom: -28px; left: 32px; font-family: var(--font-body); font-size: 64px; color: var(--blue); opacity: .2; line-height: 1; }
+  .article-content .pull-quote p { font-family: var(--font-body); font-style: italic; font-weight: 400; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.55; color: var(--ink); margin: 0; max-width: 720px; margin-inline: auto; }
+  .article-content .pull-quote p em { color: var(--gold-deep); font-weight: 700; background: linear-gradient(to top, var(--gold-soft) 0, var(--gold-soft) 60%, transparent 60%); padding: 0 4px; }
+  .article-content .pull-quote p b { color: var(--blue); font-style: italic; font-weight: 700; }
+
+  /* drop cap removed per user — Arabic doesn't use first-letter */
+
+  .article-content figure { margin: 36px 0; }
+  .article-content figure img { width: 100%; display: block; }
+  .article-content figcaption { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--ink-soft); margin-top: 10px; padding-right: 8px; }
+
+  /* right gutter for footnote anchors / share dots */
+  .gutter { position: sticky; top: 80px; }
+  .gutter-share { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .gutter-share .lbl { font-family: var(--font-body); font-style: italic; font-size: 12px; color: var(--gold-deep); margin-bottom: 8px; writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 2px; }
+  .gutter-share button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(201,151,79,.4); background: var(--paper); color: var(--ink); cursor: pointer; transition: all .25s; display: flex; align-items: center; justify-content: center; }
+  .gutter-share button:hover { background: var(--blue); color: var(--paper); border-color: var(--gold); transform: translateY(-2px); }
+
+  /* ============ SHARE STRIP (bottom of article) ============ */
+  .share-strip { max-width: 880px; margin: 64px auto 0; padding: 0 32px; }
+  .share-strip .inner { display: flex; align-items: center; gap: 20px; padding: 28px 0; border-top: 1px solid rgba(201,151,79,.4); border-bottom: 1px solid rgba(201,151,79,.4); flex-wrap: wrap; }
+  .share-strip .label { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink); }
+  .share-strip .buttons { display: flex; gap: 10px; flex: 1; }
+  .share-strip .buttons button { padding: 10px 20px; border: 1px solid rgba(201,151,79,.4); background: var(--paper); color: var(--ink); cursor: pointer; transition: all .25s; font-family: var(--font-ui); font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+  .share-strip .buttons button:hover { background: var(--blue); color: var(--paper); border-color: var(--gold); }
+  .share-strip .buttons button .ic { display: flex; align-items: center; }
+  .share-strip .copied { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold-deep); }
+
+  /* ============ AUTHOR CARD ============ */
+  .author-card { max-width: 880px; margin: 56px auto 0; padding: 0 32px; }
+  .author-card .inner { display: grid; grid-template-columns: 128px 1fr; gap: 32px; padding: 36px 40px; background: var(--paper); border: 1px solid rgba(74,74,74,.08); border-top: 3px solid var(--gold); align-items: start; }
+  .author-card .portrait { width: 128px; height: 128px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 6px 20px rgba(30,85,145,.18); }
+  .author-card .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .author-card .stack { display: flex; flex-direction: column; gap: 8px; }
+  .author-card .label { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--gold-deep); }
+  .author-card .name { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--ink); margin: 0; line-height: 1.1; }
+  .author-card .bio { font-family: var(--font-body); font-style: italic; font-size: 16px; color: var(--ink-soft); line-height: 1.6; margin: 4px 0 12px; max-width: 560px; }
+  .author-card .links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+  .author-card .links a { font-family: var(--font-ui); font-weight: 700; font-size: 14px; color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; cursor: pointer; transition: color .25s; }
+  .author-card .links a:hover { color: var(--gold-deep); }
+
+  /* ============ RELATED ============ */
+  .related-section { max-width: 1200px; margin: 64px auto 0; padding: 0 32px; }
+  .related-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,151,79,.4); }
+  .related-h h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; margin: 0; color: var(--ink); }
+  .related-h .label { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold-deep); }
+  .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+  .related-card { cursor: pointer; transition: transform .25s; }
+  .related-card:hover { transform: translateY(-3px); }
+  .related-card .thumb { aspect-ratio: 4/3; background: var(--ink) center/cover no-repeat; margin-bottom: 14px; overflow: hidden; }
+  .related-card .cat { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--gold-deep); margin-bottom: 4px; }
+  .related-card .title { font-family: var(--font-ui); font-weight: 700; font-size: 18px; line-height: 1.3; color: var(--ink); margin: 0 0 8px; transition: color .25s; }
+  .related-card:hover .title { color: var(--blue); }
+  .related-card .meta { font-family: var(--font-ui); font-weight: 500; font-size: 13px; color: var(--ink-soft); }
+
+  /* ============ COMMENTS ============ */
+  .comments-section { max-width: 880px; margin: 64px auto 80px; padding: 0 32px; }
+  .comments-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,151,79,.4); flex-wrap: wrap; gap: 12px; }
+  .comments-h h2 { font-family: var(--font-display); font-weight: 700; font-size: 32px; margin: 0; color: var(--ink); }
+  .comments-h .count { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--ink-soft); }
+  .comments-h .count b { color: var(--blue); font-weight: 700; font-style: normal; }
+
+  /* comment form */
+  .comment-form { background: var(--paper); padding: 32px; border: 1px solid rgba(74,74,74,.08); border-top: 3px solid var(--gold); margin-bottom: 40px; }
+  .comment-form h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 0 0 6px; color: var(--ink); }
+  .comment-form .desc { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 0 0 22px; }
+  .comment-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .comment-form .field label { display: block; font-family: var(--font-ui); font-weight: 600; font-size: 13px; color: var(--ink); margin-bottom: 6px; }
+  .comment-form .field label .opt { font-weight: 400; color: var(--ink-soft); font-style: italic; font-size: 12px; }
+  .comment-form input, .comment-form textarea { width: 100%; font-family: var(--font-ui); font-size: 15px; color: var(--ink); padding: 12px 14px; background: var(--bg); border: 1px solid rgba(74,74,74,.15); outline: none; transition: border-color .25s, background .25s; resize: vertical; }
+  .comment-form input:focus, .comment-form textarea:focus { border-color: var(--gold); background: var(--paper); border-right: 3px solid var(--blue); }
+  .comment-form textarea { min-height: 120px; }
+  .comment-form .submit-row { display: flex; gap: 14px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+  .comment-form .btn { font-family: var(--font-ui); font-weight: 700; font-size: 14px; padding: 12px 28px; background: var(--blue); color: var(--paper); border: 1px solid var(--gold); cursor: pointer; transition: all .25s; }
+  .comment-form .btn:hover { background: var(--gold); border-color: var(--blue); }
+  .comment-form .note { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); }
+
+  /* comments list */
+  .comment-list { display: flex; flex-direction: column; gap: 8px; }
+  .comment { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 22px 0; border-bottom: 1px solid rgba(74,74,74,.08); }
+  .comment:last-child { border-bottom: 0; }
+  .comment.reply { padding-right: 56px; background: linear-gradient(to right, transparent 0%, transparent 56px, rgba(201,151,79,.04) 56px, rgba(201,151,79,.04) 100%); }
+  .comment .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--blue); color: var(--paper); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .comment.author-reply .avatar { background: var(--gold); color: var(--blue-deep); border-color: var(--blue); }
+  .comment .body-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .comment .head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .comment .name { font-family: var(--font-ui); font-weight: 700; font-size: 15px; color: var(--ink); }
+  .comment.author-reply .name::after { content: 'المؤلف'; display: inline-block; margin-right: 8px; padding: 2px 8px; background: var(--gold-soft); color: var(--gold-deep); font-family: var(--font-ui); font-weight: 600; font-size: 11px; letter-spacing: .5px; }
+  .comment .date { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--ink-soft); }
+  .comment .body { font-family: var(--font-body); font-size: 17px; line-height: 1.85; color: var(--ink); margin: 4px 0 8px; }
+  .comment .actions { display: flex; gap: 16px; }
+  .comment .actions a { font-family: var(--font-ui); font-weight: 600; font-size: 13px; color: var(--blue); text-decoration: none; cursor: pointer; transition: color .25s; }
+  .comment .actions a:hover { color: var(--gold-deep); }
+  .comment .actions a .ic { display: inline-block; vertical-align: middle; margin-left: 4px; }
+
+  /* ============ NEWSLETTER ============ */
+  .news-section { padding: 80px 0; margin-top: 64px; background: var(--paper); border-top: 1px solid rgba(201,151,79,.3); }
+  .news-inner { max-width: 720px; margin: 0 auto; padding: 0 32px; text-align: center; }
+  .news-card { background: var(--paper); padding: 48px 56px; position: relative; box-shadow: 0 8px 40px rgba(30,85,145,.06); border-top: 1px solid rgba(74,74,74,.08); border-bottom: 1px solid rgba(74,74,74,.08); }
+  .news-card::before, .news-card::after { content: ''; position: absolute; top: 16px; bottom: 16px; width: 2px; background: linear-gradient(to bottom, transparent, var(--gold) 20%, var(--gold) 80%, transparent); }
+  .news-card::before { right: 0; }
+  .news-card::after { left: 0; }
+  .news-card .ic { width: 56px; height: 56px; margin: 0 auto 20px; border-radius: 50%; background: var(--blue); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 24px; border: 2px solid var(--gold); }
+  .news-card h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.2vw, 38px); line-height: 1.1; margin: 0 0 12px; color: var(--ink); }
+  .news-card p { font-family: var(--font-body); font-style: italic; font-size: 17px; color: var(--ink-soft); margin: 0 0 28px; }
+  .news-form { display: flex; max-width: 480px; margin: 0 auto; gap: 0; border-bottom: 2px solid var(--gold); }
+  .news-form input { flex: 1; border: 0; background: transparent; padding: 14px 0; font-family: var(--font-ui); font-size: 16px; color: var(--ink); text-align: right; outline: none; }
+  .news-form input::placeholder { color: rgba(74,74,74,.4); }
+  .news-form button { border: 0; background: transparent; padding: 14px 12px; font-family: var(--font-ui); font-weight: 700; font-size: 14px; color: var(--blue); cursor: pointer; transition: color .25s; }
+
+  /* ============ FOOTER ============ */
+  footer { background: #152033; color: #F4EFE3; padding: 64px 0 28px; position: relative; overflow: hidden; }
+  footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to left, transparent, var(--gold) 25%, var(--gold) 75%, transparent); opacity: .85; z-index: 2; }
+  footer::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 80% 60% at 70% 0%, rgba(30,85,145,.55) 0%, transparent 65%); z-index: 0; }
+  .foot-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+  .foot-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .foot-brand-row { display: flex; align-items: center; gap: 14px; }
+  .foot-brand { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: #F4EFE3; }
+  .foot-mono-sm { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: #152033; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; border: 1.5px solid var(--gold-deep); }
+  .foot-bottom { margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(201,151,79,.3); display: flex; justify-content: space-between; font-family: var(--font-body); font-style: italic; font-size: 14px; opacity: .75; flex-wrap: wrap; gap: 8px; color: #F4EFE3; }
+
+  @media (max-width: 1024px) {
+    .article-body-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .toc, .gutter { position: static; }
+    .gutter-share { flex-direction: row; }
+    .gutter-share .lbl { writing-mode: horizontal-tb; transform: none; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- reading progress (top of viewport, fixed) -->
+  <div class="reading-progress"><div class="bar" id="rp"></div></div>
+
+  <!-- masthead -->
+  <header class="masthead">
+    <div class="mast-inner">
+      <a class="mast-back">← العودة للرئيسية</a>
+      <div class="mast-title">
+        <div class="word">الـعَـسَّـاف</div>
+        <div class="sub">مقالات وقراءات</div>
+      </div>
+      <div class="mast-social">
+        <a aria-label="X / تويتر"><span class="ic">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+        </span></a>
+        <a aria-label="بحث"><span class="ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-item">قراءة وكتابة</a>
+      <a class="nav-item">شريعة وقانون</a>
+      <a class="nav-item">سير وأعلام</a>
+      <a class="nav-item active">سياسة واقتصاد</a>
+      <a class="nav-item">مواسم ومجتمع</a>
+      <a class="nav-item">إدارة وتربية</a>
+    </div>
+  </nav>
+
+  <!-- breadcrumb -->
+  <div class="crumb">
+    <a>الرئيسية</a><span class="sep">›</span>
+    <a>سياسة واقتصاد</a><span class="sep">›</span>
+    <span class="current">أعداد وزارية</span>
+  </div>
+
+  <!-- article head -->
+  <header class="article-head">
+    <div class="kicker"><span class="line"></span><span class="label">سياسة واقتصاد</span></div>
+    <h1>أعداد وزارية</h1>
+    <p class="lede">قراءة في التعيينات الوزارية الأخيرة ومدلولاتها على بنية القرار، وفي ما تخفيه من تحوّلات في موازين الإدارة والسياسة.</p>
+
+    <div class="article-meta">
+      <div class="author">
+        <div class="portrait"><img src="https://pbs.twimg.com/profile_images/1851248011503935488/he5MabI6_400x400.jpg" alt="أحمد العسَّاف"></div>
+        <span class="name">أحمد العسَّاف</span>
+      </div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><b>٢٥ أبريل ٢٠٢٦</b></div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><b>٧ دقائق قراءة</b></div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg></span><b>١٬٦٤٠ كلمة</b></div>
+    </div>
+  </header>
+
+  <!-- TTS voice reader -->
+  <div class="tts-player" id="ttsPlayer">
+    <div class="inner">
+      <button class="play-btn" id="ttsPlayBtn" aria-label="استمع للمقال">
+        <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <div class="info">
+        <b>استمع للمقال</b>
+        <span class="sub">قراءة صوتيَّة بصوت اصطناعي ـ تقريباً ٧ دقائق</span>
+      </div>
+      <div class="progress-bar" id="ttsProgress"><div class="filled" id="ttsFilled"></div></div>
+      <button class="speed" id="ttsSpeed">١٫٠×</button>
+      <span class="err-note">القراءة الصوتيَّة غير مدعومة في هذا المتصفِّح</span>
+    </div>
+  </div>
+
+  <!-- featured image -->
+  <div class="featured-img">
+    <div class="wrap">
+      <img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=1800&auto=format&q=85" alt="">
+    </div>
+    <div class="caption">صورة من جلسة مجلس الوزراء ـ المصدر: هيئة الصور.</div>
+  </div>
+
+  <!-- body with TOC -->
+  <div class="article-body-wrap">
+
+    <!-- TOC -->
+    <aside class="toc">
+      <div class="label">عناوين المقال</div>
+      <ol>
+        <li class="active"><a href="#s1">مقدِّمة</a></li>
+        <li><a href="#s2">أرقامٌ وأعداد</a></li>
+        <li><a href="#s3">ماذا تعني هذه التعيينات؟</a></li>
+        <li><a href="#s4">ملاحظاتٌ ختاميَّة</a></li>
+      </ol>
+    </aside>
+
+    <!-- main content -->
+    <article class="article-content">
+
+      <p>صدرت الأوامر الملكيَّة الكريمة هذا الأسبوع بتعيين عددٍ من الوزراء وكبار المسؤولين، وكأنَّ الأمر بات تقليداً معتاداً في كلِّ موسم. لكن وراء كلِّ تعيينٍ قراءةً، ووراء كلِّ موسمٍ من التعيينات قراءةً للقراءات. وفي هذه السطور أحاول أن أقرأ ما وراء الأعداد، لا الأعداد ذاتها.</p>
+
+      <p>ليست الإدارة العامَّة في بلادنا حقلاً قاحلاً، بل هي ميدانٌ خصبٌ من ميادين الفكر السياسي العربي الحديث. وما يمرُّ على الأذن من <a>تعيينٍ</a> أو إعفاء، هو في الحقيقة <em>قرارٌ مدروس</em> له ما قبله وما بعده.</p>
+
+      <h2 id="s1">مقدِّمة</h2>
+
+      <p>منذ أن بدأت متابعة الشأن العام، كنت أحرص على قراءة كلِّ تعيينٍ وزاريٍّ في سياقه، لا في معزلٍ عنه. فالتعيين ليس حدثاً قائماً بذاته، بل هو حلقةٌ في سلسلةٍ طويلة من القرارات التي تشكِّل ـ شيئاً فشيئاً ـ ملامح المرحلة.</p>
+
+      <p>وقد لاحظتُ في السنوات الأخيرة تحوُّلاً واضحاً في طبيعة التعيينات: من اعتماد الكفاءات التقليديَّة إلى تشجيع الكفاءات الشابَّة. ومن الاحتفاء بالخبرة المتراكمة إلى الإيمان بالطاقة المتجدِّدة. وهذا تحوُّلٌ <a>يستحقُّ التأمُّل</a>، لا الاستهجان ولا التبجيل.</p>
+
+      <h2 id="s2">أرقامٌ وأعداد</h2>
+
+      <p>إذا نظرنا إلى الأعداد المطلقة في موجة التعيينات الأخيرة، نجد أنَّ متوسِّط أعمار الوزراء الجدد قد انخفض بنحو ثماني سنواتٍ مقارنةً بالعقد الماضي. وأنَّ نسبة الحاصلين على درجاتٍ علميَّةٍ من جامعاتٍ غير محليَّةٍ قد ارتفعت إلى ما يزيد على خمسةٍ وستِّين بالمئة.</p>
+
+      <ul>
+        <li>متوسِّط العمر: <strong>تسعةٌ وأربعون عاماً</strong> (مقابل سبعةٍ وخمسين قبل عقد).</li>
+        <li>الحاصلون على درجاتٍ من جامعاتٍ خارج الوطن: <strong>٦٧٪</strong>.</li>
+        <li>عدد الذين تولَّوا مناصب وزاريَّة لأوَّل مرَّة: <strong>أحد عشر من أصل ستَّة عشر</strong>.</li>
+      </ul>
+
+      <p>هذه الأرقام لا تُقرأ مفردةً. فهي ـ مجتمعةً ـ ترسم صورةً لتوجُّهٍ إداريٍّ يُؤثر التجديد على التراكم. وقد يكون ذلك مبرَّراً في مرحلةٍ تتطلَّب الإسراع في الإصلاح، أو غير مبرَّرٍ في مرحلةٍ تحتاج إلى الحكمة قبل السرعة.</p>
+
+      <div class="pull-quote">
+        <p>الكفاءة لا تُقاس بالعمر وحده، ولكنَّ الخبرة <em>لا تُختزل</em> في الشهادة. وما بين الاثنين تقع <b>دقائق الإدارة العامَّة</b> ـ وهي دقائق صعبة.</p>
+      </div>
+
+      <h2 id="s3">ماذا تعني هذه التعيينات؟</h2>
+
+      <p>التعيين الوزاريُّ ليس مجرَّد تكليفٍ بمنصب، بل هو إشارةٌ إلى توجُّهٍ، وإعلانٌ عن أولويَّة، ورسالةٌ تُقرأ من داخل الإدارة العامَّة وخارجها. وفي قراءة هذه الإشارات تكمن مفاتيح فهم المرحلة.</p>
+
+      <h3>أوَّلاً: في الأولويَّات</h3>
+      <p>عندما يُعيَّن وزيرٌ من خلفيَّةٍ تقنيَّةٍ في حقيبةٍ كانت تقليديَّاً تُسند إلى ذوي الخبرة الإداريَّة الطويلة، فإنَّ ذلك مؤشِّرٌ على أنَّ القائمين على الأمر يرون في التحديث التقنيِّ أولويَّةً تتقدَّم على الاستمراريَّة الإداريَّة.</p>
+
+      <h3>ثانياً: في التوازنات</h3>
+      <p>وعندما تتنوَّع خلفيَّات الوزراء الجدد بين أكاديميَّةٍ وعمليَّةٍ وقطاعٍ خاصٍّ، فإنَّ ذلك يعكس <a>إيماناً بالتعدُّديَّة</a> في صناعة القرار، لا الاكتفاء بمصدرٍ واحدٍ من مصادر الكفاءة.</p>
+
+      <h2 id="s4">ملاحظاتٌ ختاميَّة</h2>
+
+      <p>لا أعرف تماماً ما يحمله المستقبل، ولا أحبُّ التنبُّؤ بنتائج قراراتٍ لم تختبر بعد. ولكنَّني أعرف أنَّ المتابع للشأن العامِّ لا بدَّ له من قراءة الأرقام في سياقاتها، ومن تأمُّل التعيينات لا في يوم صدورها، بل بعد سنواتٍ من حيث آثرها على ميدان الإدارة.</p>
+
+      <p>ولعلَّي أعود إلى هذه التعيينات بعد عام، أو عامين، لأقرأ النتائج لا الأعداد. فالحكم على القرار يأتي بعد رؤية الأثر، لا بعد قراءة الإعلان.</p>
+
+    </article>
+
+    <!-- right gutter share dots -->
+    <aside class="gutter">
+      <div class="gutter-share">
+        <span class="lbl">شارك</span>
+        <button aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></button>
+        <button aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg></button>
+        <button aria-label="Telegram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m9.417 15.181-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931L23.93 3.821l.001-.001c.321-1.496-.541-2.081-1.527-1.714L1.114 10.27c-1.45.564-1.428 1.374-.247 1.741l5.418 1.687 12.585-7.918c.581-.385 1.109-.171.694.171Z"/></svg></button>
+        <button aria-label="نسخ الرابط" id="copyTop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </aside>
+
+  </div>
+
+  <span class="copied" id="copiedNote" style="display:none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 20px; font-family: var(--font-ui); font-weight: 600; font-size: 14px; z-index: 200;">تمَّ نسخ الرابط ✓</span>
+
+  <!-- author card -->
+  <section class="author-card">
+    <div class="inner">
+      <div class="portrait"><img src="https://pbs.twimg.com/profile_images/1851248011503935488/he5MabI6_400x400.jpg" alt="أحمد العسَّاف"></div>
+      <div class="stack">
+        <div class="label">المؤلف</div>
+        <h3 class="name">أحمد بن عبد المحسن العسَّاف</h3>
+        <p class="bio">كاتب ومدوِّن سعودي ـ يكتب في القراءة والكتابة والسير والشأن العام منذ ٢٠٠٨. له أكثر من مئةٍ وعشرين مقالاً.</p>
+        <div class="links">
+          <a>تعريف بالمؤلف</a>
+          <a>كل مقالاته</a>
+          <a>تابع على إكس</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- related -->
+  <section class="related-section">
+    <div class="related-h">
+      <h2>من القسم نفسه</h2>
+      <span class="label">سياسة واقتصاد</span>
+    </div>
+    <div class="related-grid">
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">عن الاقتصاد الريعي</h3>
+        <div class="meta">٢ فبراير ٢٠٢٤ ـ ١٠ دقائق</div>
+      </article>
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">في معنى السياسة العامَّة</h3>
+        <div class="meta">٢١ نوفمبر ٢٠٢٣ ـ ٨ دقائق</div>
+      </article>
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1568667256549-094345857637?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">قراءة في «نظام الحكم» للماوردي</h3>
+        <div class="meta">٣ أكتوبر ٢٠٢٥ ـ ٩ دقائق</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- comments -->
+  <section class="comments-section">
+    <div class="comments-h">
+      <h2>التعليقات</h2>
+      <span class="count"><b>٤</b> تعليقات على هذا المقال</span>
+    </div>
+
+    <!-- comment form -->
+    <form class="comment-form" onsubmit="event.preventDefault();">
+      <h3>أضِف تعليقاً</h3>
+      <p class="desc">كل تعليقٍ يخضع للمراجعة قبل النشر. نرحِّب بالنقاش المهذَّب.</p>
+
+      <div class="row">
+        <div class="field">
+          <label>الاسم</label>
+          <input type="text" placeholder="اسمك الكريم">
+        </div>
+        <div class="field">
+          <label>البريد الإلكتروني <span class="opt">(اختياري ـ لن يُنشر)</span></label>
+          <input type="email" placeholder="example@email.com" dir="ltr">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>تعليقك</label>
+        <textarea placeholder="اكتب تعليقك هنا..."></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn" type="submit">أرسل التعليق ←</button>
+        <span class="note">سيظهر تعليقك بعد المراجعة.</span>
+      </div>
+    </form>
+
+    <!-- existing comments -->
+    <div class="comment-list">
+
+      <div class="comment">
+        <div class="avatar">س</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">سعد القحطاني</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">قراءةٌ موفَّقة كعادتك أبا عبد المحسن. تأمَّلت معك في الأعداد والأرقام، وأضيف ملاحظةً على نقطة الكفاءات الشابَّة: العبرة ليست بالعمر، بل بالاستعداد لتحمُّل المسؤوليَّة، وكثيرٌ من الكبار سنّاً تنقصهم تلك الجاهزيَّة.</p>
+          <div class="actions">
+            <a>ردّ</a>
+            <a>إعجاب · ٣</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment author-reply reply">
+        <div class="avatar">ع</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">أحمد العسَّاف</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">شكراً أبا فهد على هذه الملاحظة، وأنت محقٌّ تماماً ـ فالاستعداد النفسي والمهني هو الفيصل، لا العمر وحده. وكتبتُ هذه السطور تحديداً لأنبِّه إلى الخلط الذي يقع فيه بعض الكتَّاب بين «التجديد» و«تشبيب الأعمار»، وهما ليسا مترادفين.</p>
+          <div class="actions">
+            <a>إعجاب · ٢</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar">ن</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">نورة الهاجري</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">المقال يطرح تساؤلاً مهمَّاً عن العلاقة بين الجامعات الخارجيَّة والقدرة على فهم السياق المحليِّ. هل سنرى تحليلاً مفصَّلاً لهذه النقطة في مقالٍ قادم؟</p>
+          <div class="actions">
+            <a>ردّ</a>
+            <a>إعجاب · ١</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar">م</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">محمد الدوسري</span>
+            <span class="date">٢٧ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">نقاطٌ ختاميَّة تستحقُّ التوقُّف. سأعود لقراءة المقال مرَّةً أخرى بعد عام، كما اقترحتَ، لأرى أيُّنا كان أصدق قراءةً للمشهد.</p>
+          <div class="actions">
+            <a>ردّ</a>
+            <a>إعجاب</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-row">
+        <div class="foot-brand-row">
+          <div class="foot-mono-sm">ع</div>
+          <div class="foot-brand">العَسَّاف</div>
+        </div>
+        <div style="font-family: var(--font-body); font-style: italic; opacity: .8;">مدوَّنة في القراءة، الكتابة، والسير ـ منذ ٢٠٠٨.</div>
+      </div>
+      <div class="foot-bottom">
+        <span>© ٢٠٠٨ — ٢٠٢٦ ahmalassaf.com</span>
+        <span>بخطوط القاهرة ـ أميري ـ عرف رقعة</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// reading progress
+(() => {
+  const bar = document.getElementById('rp');
+  const update = () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+  };
+  document.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+// scroll-spy TOC
+(() => {
+  const items = document.querySelectorAll('.toc li');
+  const headings = Array.from(items).map(li => document.getElementById(li.querySelector('a').getAttribute('href').slice(1)));
+  const update = () => {
+    const top = window.scrollY + 120;
+    let active = 0;
+    headings.forEach((h, i) => { if (h && h.offsetTop <= top) active = i; });
+    items.forEach((it, i) => it.classList.toggle('active', i === active));
+  };
+  document.addEventListener('scroll', update, { passive: true });
+  document.querySelectorAll('.toc a').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const t = document.getElementById(id);
+    if (t) window.scrollTo({ top: t.offsetTop - 100, behavior: 'smooth' });
+  }));
+  update();
+})();
+
+// copy link (only the gutter button remains)
+(() => {
+  const note = document.getElementById('copiedNote');
+  const btn = document.getElementById('copyTop');
+  if (btn) btn.addEventListener('click', () => {
+    navigator.clipboard?.writeText(window.location.href);
+    note.style.display = 'inline';
+    setTimeout(() => { note.style.display = 'none'; }, 2000);
+  });
+})();
+
+// TTS voice reader
+(() => {
+  const player = document.getElementById('ttsPlayer');
+  const playBtn = document.getElementById('ttsPlayBtn');
+  const speedBtn = document.getElementById('ttsSpeed');
+  const filled = document.getElementById('ttsFilled');
+  const progress = document.getElementById('ttsProgress');
+
+  if (!('speechSynthesis' in window)) {
+    player.classList.add('unsupported');
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+  const speeds = [0.85, 1.0, 1.25, 1.5];
+  const speedLabels = ['٠٫٨٥×', '١٫٠×', '١٫٢٥×', '١٫٥×'];
+  let speedIdx = 1;
+  let chunks = [];
+  let currentChunk = 0;
+  let totalChunks = 0;
+  let isPlaying = false;
+
+  function getChunks() {
+    return Array.from(document.querySelectorAll('.article-content p, .article-content h2, .article-content h3, .article-content blockquote p, .article-content .pull-quote p, .article-content li'))
+      .map(el => el.textContent.trim())
+      .filter(t => t.length > 0);
+  }
+
+  function updateProgress() {
+    const pct = totalChunks > 0 ? (currentChunk / totalChunks) * 100 : 0;
+    filled.style.width = pct + '%';
+  }
+
+  function speakNext() {
+    if (currentChunk >= chunks.length) {
+      isPlaying = false;
+      player.classList.remove('playing');
+      currentChunk = 0;
+      updateProgress();
+      return;
+    }
+    const u = new SpeechSynthesisUtterance(chunks[currentChunk]);
+    u.lang = 'ar-SA';
+    u.rate = speeds[speedIdx];
+    u.onend = () => { currentChunk++; updateProgress(); if (isPlaying) speakNext(); };
+    u.onerror = () => { currentChunk++; if (isPlaying) speakNext(); };
+    synth.speak(u);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+      if (synth.paused) {
+        synth.resume();
+      } else {
+        chunks = getChunks();
+        totalChunks = chunks.length;
+        currentChunk = 0;
+        speakNext();
+      }
+      isPlaying = true;
+      player.classList.add('playing');
+    } else {
+      synth.pause();
+      isPlaying = false;
+      player.classList.remove('playing');
+    }
+  });
+
+  speedBtn.addEventListener('click', () => {
+    speedIdx = (speedIdx + 1) % speeds.length;
+    speedBtn.textContent = speedLabels[speedIdx];
+    if (isPlaying) {
+      // restart current chunk at new speed
+      synth.cancel();
+      speakNext();
+    }
+  });
+
+  progress.addEventListener('click', (e) => {
+    if (totalChunks === 0) return;
+    const rect = progress.getBoundingClientRect();
+    const pct = 1 - ((e.clientX - rect.left) / rect.width); // RTL: progress fills from right
+    currentChunk = Math.floor(pct * totalChunks);
+    if (isPlaying) {
+      synth.cancel();
+      speakNext();
+    } else {
+      updateProgress();
+    }
+  });
+
+  // stop on page hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && isPlaying) {
+      synth.cancel();
+      isPlaying = false;
+      player.classList.remove('playing');
+    }
+  });
+})();
+</script>
+</body>
+</html>
