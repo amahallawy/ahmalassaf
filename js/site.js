@@ -151,11 +151,33 @@
     applyFilters();
   };
 
+  // ============ FORM SUCCESS STATES ============
+  const initFormSuccessStates = () => {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        contactForm.classList.add('sent');
+      });
+    }
+    const newsCard = document.getElementById('newsCard');
+    if (newsCard) {
+      const newsForm = newsCard.querySelector('.news-form');
+      if (newsForm) {
+        newsForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          newsCard.classList.add('sent');
+        });
+      }
+    }
+  };
+
   // expose helpers/state on a namespace; later init functions extend it
   window.AHMALASSAF = { toAr };
 
   document.addEventListener('DOMContentLoaded', () => {
     initCarousel();
     initArchiveFilter();
+    initFormSuccessStates();
   });
 })();
