@@ -363,7 +363,6 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 
 /* form success state */
 .form-success { display: none; text-align: center; padding: 32px 16px 16px; }
-.form-success.show { display: block; }
 .contact-form.sent .form-real, .news-card.sent .news-real { display: none; }
 .contact-form.sent .form-success, .news-card.sent .form-success { display: block; }
 
@@ -377,6 +376,10 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
 .form-field { display: flex; flex-direction: column; }
+/* Standalone form-field (outside a .form-row) gets the bottom margin */
+.contact-form .form-real > .form-field { margin-bottom: 18px; }
+/* The last form-field before the submit row has no extra bottom margin (the .form-submit margin-top handles spacing) */
+.contact-form .form-real > .form-field:last-of-type { margin-bottom: 0; }
 .form-field label { font-family: var(--font-ui); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 8px; letter-spacing: .3px; }
 .form-field input, .form-field textarea { font-family: var(--font-ui); font-size: 16px; color: var(--ink); padding: 14px 16px; background: var(--bg); border: 1px solid rgba(74,74,74,.15); border-radius: 0; outline: none; transition: border-color .25s, background .25s; resize: vertical; }
 .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); background: var(--paper); border-right: 3px solid var(--blue); }

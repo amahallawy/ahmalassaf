@@ -238,7 +238,7 @@
           </div>
 
           <div class="about-cta">
-            <a>اقرأ السيرة الكاملة</a>
+            <a href="/about.html">اقرأ السيرة الكاملة</a>
           </div>
         </div>
       </div>
@@ -273,23 +273,23 @@
 
           <div class="form-row">
             <div class="form-field">
-              <label>الاسم</label>
-              <input type="text" placeholder="اسمك الكريم">
+              <label for="contact-name">الاسم</label>
+              <input type="text" id="contact-name" placeholder="اسمك الكريم">
             </div>
             <div class="form-field">
-              <label>البريد الإلكتروني</label>
-              <input type="email" placeholder="example@email.com" dir="ltr">
+              <label for="contact-email">البريد الإلكتروني</label>
+              <input type="email" id="contact-email" placeholder="example@email.com" dir="ltr">
             </div>
           </div>
 
-          <div class="form-field" style="margin-bottom:18px">
-            <label>الموضوع</label>
-            <input type="text" placeholder="عن أيِّ مقالٍ تريد المراسلة؟">
+          <div class="form-field">
+            <label for="contact-subject">الموضوع</label>
+            <input type="text" id="contact-subject" placeholder="عن أيِّ مقالٍ تريد المراسلة؟">
           </div>
 
-          <div class="form-field" style="margin-bottom:0">
-            <label>نصُّ الرسالة</label>
-            <textarea placeholder="اكتب رسالتك هنا..."></textarea>
+          <div class="form-field">
+            <label for="contact-message">نصُّ الرسالة</label>
+            <textarea id="contact-message" placeholder="اكتب رسالتك هنا..."></textarea>
           </div>
 
           <div class="form-submit">
@@ -303,7 +303,7 @@
         <div class="contact-meta">
           <h4>وسائل أخرى</h4>
 
-          <a class="contact-card">
+          <a class="contact-card" href="mailto:contact@ahmalassaf.com">
             <div class="ic">✉</div>
             <div class="stack">
               <span class="lbl">البريد المباشر</span>
@@ -311,7 +311,7 @@
             </div>
           </a>
 
-          <a class="contact-card">
+          <a class="contact-card" href="https://x.com/ahmalassaf">
             <div class="ic">𝕏</div>
             <div class="stack">
               <span class="lbl">إكس / تويتر</span>
@@ -319,7 +319,7 @@
             </div>
           </a>
 
-          <a class="contact-card">
+          <a class="contact-card" href="/feed.xml">
             <div class="ic">⌬</div>
             <div class="stack">
               <span class="lbl">تغذية RSS</span>
@@ -327,7 +327,7 @@
             </div>
           </a>
 
-          <a class="contact-card">
+          <a class="contact-card" href="#newsCard">
             <div class="ic">✎</div>
             <div class="stack">
               <span class="lbl">النشرة البريدية</span>
@@ -363,7 +363,7 @@
           <h3>كل أسبوع ـ مقالٌ واحد</h3>
           <p>اشترك بنشرة العسَّاف لتصلك المقالات الجديدة في بريدك. لا إعلانات، لا متابعة، فقط القراءة.</p>
           <form class="news-form">
-            <input type="email" placeholder="بريدك الإلكتروني" dir="ltr" required>
+            <input type="email" placeholder="بريدك الإلكتروني" dir="ltr" required aria-label="بريدك الإلكتروني">
             <button type="submit">اشترك ←</button>
           </form>
           <div class="note">يُمكنك إلغاء الاشتراك في أيِّ وقت.</div>
