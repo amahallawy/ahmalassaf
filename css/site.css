@@ -1,0 +1,96 @@
+/* ============================================================
+   ahmalassaf.com — site styles
+   Foundation: tokens, fonts, reset, base typography.
+   See docs/design-spec.md §5 for design system rationale.
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&display=swap');
+
+:root {
+  /* Palette (5 colors) */
+  --blue:        #1E5591;
+  --blue-deep:   #143E69;
+  --bg:          #F9F9F9;
+  --paper:       #FFFFFF;
+  --ink:         #4A4A4A;
+  --ink-soft:    #6B6358;
+  --gold:        #C9974F;
+  --gold-deep:   #A87A2E;
+  --gold-soft:   rgba(201,151,79,.18);
+  --footer-bg:   #152033;
+  --paper-cream: linear-gradient(135deg, #fbf8f0 0%, #ffffff 100%);
+
+  /* Typography */
+  --font-display: 'Aref Ruqaa', 'Amiri', serif;
+  --font-ui:      'Cairo', system-ui, sans-serif;
+  --font-body:    'Amiri', Georgia, serif;
+
+  /* Spacing (8-pt) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Layout */
+  --max-prose:   640px;
+  --max-content: 880px;
+  --max-page:    1200px;
+  --radius-pill: 999px;
+}
+
+/* ===== reset ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; }
+
+/* ===== base ===== */
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  direction: rtl;
+  text-align: right;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== focus rings ===== */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ===== visually hidden (sr-only) ===== */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== container utilities ===== */
+.container {
+  max-width: var(--max-page);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
