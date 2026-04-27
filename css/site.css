@@ -431,7 +431,7 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .search-pop input { width: 100%; padding: 12px 0; font-family: var(--font-ui); font-size: 16px; color: var(--ink); background: transparent; border: 0; border-bottom: 2px solid var(--gold); outline: none; text-align: right; }
 .search-pop input::placeholder { color: rgba(74,74,74,.4); font-style: italic; font-family: var(--font-body); }
 .search-pop .results { max-height: 360px; overflow-y: auto; margin-top: 14px; }
-.search-pop .result { display: block; padding: 12px 8px 12px 0; border-bottom: 1px solid rgba(201,151,79,.18); cursor: pointer; transition: padding .25s, background .25s; text-decoration: none; }
+.search-pop .result { display: block; padding: 12px 8px 12px 0; border: 0; border-bottom: 1px solid rgba(201,151,79,.18); cursor: pointer; transition: padding .25s, background .25s; text-decoration: none; background: transparent; font: inherit; color: inherit; text-align: right; width: 100%; }
 .search-pop .result:hover { padding-right: 16px; background: linear-gradient(to left, transparent, rgba(201,151,79,.06)); }
 .search-pop .result:last-child { border-bottom: 0; }
 .search-pop .result .cat { font-family: var(--font-body); font-style: italic; font-size: 12px; color: var(--gold-deep); margin-bottom: 4px; }

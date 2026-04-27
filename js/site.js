@@ -195,9 +195,19 @@
       };
     });
 
+    const esc = (s) => String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
     const open = () => {
       wrap.classList.add('open');
       trigger.setAttribute('aria-expanded', 'true');
+      // Defer focus by 100ms so the .open class transition starts first;
+      // otherwise screen readers may announce the input before the dialog
+      // becomes visible.
       setTimeout(() => input.focus(), 100);
       render('');
     };
@@ -209,10 +219,11 @@
     const toggle = () => wrap.classList.contains('open') ? close() : open();
 
     const highlight = (text, q) => {
-      if (!q) return text;
-      const i = text.indexOf(q);
-      if (i < 0) return text;
-      return text.slice(0, i) + '<em>' + text.slice(i, i + q.length) + '</em>' + text.slice(i + q.length);
+      if (!q) return esc(text);
+      // Use case-insensitive indexOf so case mismatches still highlight
+      const i = text.toLowerCase().indexOf(q.toLowerCase());
+      if (i < 0) return esc(text);
+      return esc(text.slice(0, i)) + '<em>' + esc(text.slice(i, i + q.length)) + '</em>' + esc(text.slice(i + q.length));
     };
 
     const render = (q) => {
@@ -224,16 +235,16 @@
       countEl.textContent = toAr(filtered.length);
 
       if (filtered.length === 0) {
-        resultsEl.innerHTML = '<div class="empty">لا نتائج تطابق «' + q + '»</div>';
+        resultsEl.innerHTML = '<div class="empty">لا نتائج تطابق «' + esc(q) + '»</div>';
         return;
       }
 
       resultsEl.innerHTML = filtered.slice(0, 8).map(e => `
-        <a class="result">
-          <div class="cat">${e.cat}</div>
+        <button class="result" type="button">
+          <div class="cat">${esc(e.cat)}</div>
           <div class="title">${highlight(e.title, q.trim())}</div>
-          <div class="result-meta">${e.date} · ${e.meta}</div>
-        </a>
+          <div class="result-meta">${esc(e.date)} · ${esc(e.meta)}</div>
+        </button>
       `).join('');
     };
 
@@ -248,7 +259,9 @@
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && wrap.classList.contains('open')) close();
-      if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+      if (e.key === '/' &&
+          !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName) &&
+          !document.activeElement.isContentEditable) {
         e.preventDefault();
         open();
       }
