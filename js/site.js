@@ -275,7 +275,7 @@
     const update = () => {
       const h = document.documentElement;
       const denom = (h.scrollHeight - h.clientHeight) || 1;
-      const pct = (h.scrollTop / denom) * 100;
+      const pct = (window.scrollY / denom) * 100;
       bar.style.width = pct + '%';
     };
     document.addEventListener('scroll', update, { passive: true });
@@ -291,7 +291,7 @@
       return a ? document.getElementById(a.getAttribute('href').slice(1)) : null;
     });
     const update = () => {
-      const top = window.scrollY + 120;
+      const top = window.scrollY + 100;
       let active = 0;
       headings.forEach((h, i) => { if (h && h.offsetTop <= top) active = i; });
       items.forEach((it, i) => it.classList.toggle('active', i === active));
