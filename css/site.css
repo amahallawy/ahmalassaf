@@ -6,8 +6,7 @@
      - Reset
      - Base body
      - Reduced motion
-     - Focus rings
-     - Focus visible (component overrides)
+     - Focus rings (universal + component overrides)
      - sr-only utility
      - .container utility
      - Inner-page utilities (.page-title, .page-body, .page-back)
@@ -118,17 +117,8 @@ body {
   }
 }
 
-/* ===== focus rings ===== */
+/* ===== focus rings (universal + component overrides) ===== */
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-}
-
-/* ===== focus visible (component overrides) ===== */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
