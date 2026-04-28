@@ -320,6 +320,8 @@
       return;
     }
 
+    if (!playBtn || !speedBtn || !filled || !progress) return;
+
     const synth = window.speechSynthesis;
     const speeds = [0.85, 1.0, 1.25, 1.5];
     const speedLabels = ['٠٫٨٥×', '١٫٠×', '١٫٢٥×', '١٫٥×'];
@@ -328,6 +330,7 @@
     let currentChunk = 0;
     let totalChunks = 0;
     let isPlaying = false;
+    let generation = 0; // incremented when cancelling so stale callbacks reject
 
     const getChunks = () =>
       Array.from(document.querySelectorAll('.article-content p, .article-content h2, .article-content h3, .article-content blockquote p, .article-content .pull-quote p, .article-content li'))
@@ -347,11 +350,18 @@
         updateProgress();
         return;
       }
+      const myGen = generation;
       const u = new SpeechSynthesisUtterance(chunks[currentChunk]);
       u.lang = 'ar-SA';
       u.rate = speeds[speedIdx];
-      u.onend   = () => { currentChunk++; updateProgress(); if (isPlaying) speakNext(); };
-      u.onerror = () => { currentChunk++;                    if (isPlaying) speakNext(); };
+      u.onend   = () => {
+        if (myGen !== generation) return; // stale (cancelled by speed change or seek)
+        currentChunk++; updateProgress(); if (isPlaying) speakNext();
+      };
+      u.onerror = () => {
+        if (myGen !== generation) return; // stale
+        currentChunk++; if (isPlaying) speakNext();
+      };
       synth.speak(u);
     };
 
@@ -378,6 +388,7 @@
       speedIdx = (speedIdx + 1) % speeds.length;
       speedBtn.textContent = speedLabels[speedIdx];
       if (isPlaying) {
+        generation++;
         synth.cancel();
         speakNext();
       }
@@ -388,8 +399,9 @@
       const rect = progress.getBoundingClientRect();
       // RTL: progress visually fills from the right edge
       const pct = 1 - ((e.clientX - rect.left) / rect.width);
-      currentChunk = Math.floor(pct * totalChunks);
+      currentChunk = Math.min(Math.floor(pct * totalChunks), totalChunks - 1);
       if (isPlaying) {
+        generation++;
         synth.cancel();
         speakNext();
       } else {
@@ -400,6 +412,7 @@
     // stop on page hidden (tab switch, etc.)
     document.addEventListener('visibilitychange', () => {
       if (document.hidden && isPlaying) {
+        generation++;
         synth.cancel();
         isPlaying = false;
         player.classList.remove('playing');
