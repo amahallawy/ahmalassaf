@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أعداد وزارية — مدوَّنة العسَّاف</title>
+<meta name="description" content="قراءة في التعيينات الوزارية الأخيرة ومدلولاتها على بنية القرار، وفي ما تخفيه من تحوّلات في موازين الإدارة والسياسة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../css/site.css">
+</head>
+<body class="page-post">
+
+  <!-- reading progress (top of viewport, fixed) -->
+  <div class="reading-progress"><div class="bar" id="rp"></div></div>
+
+  <!-- masthead (compact variant via .page-post body class) -->
+  <header class="masthead">
+    <div class="mast-inner">
+      <a class="mast-back" href="/">← العودة للرئيسية</a>
+      <div class="mast-title">
+        <a href="/" style="text-decoration:none; color:inherit;">
+          <div class="word">الـعَـسَّـاف</div>
+          <div class="sub">مقالات وقراءات</div>
+        </a>
+      </div>
+      <div class="mast-social">
+        <a aria-label="X / تويتر" href="#"><span class="ic">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+        </span></a>
+        <a aria-label="بحث" href="/"><span class="ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-item" href="/?cat=reading">قراءة وكتابة</a>
+      <a class="nav-item" href="/?cat=shariah">شريعة وقانون</a>
+      <a class="nav-item" href="/?cat=siyar">سير وأعلام</a>
+      <a class="nav-item active" href="/?cat=siyasah">سياسة واقتصاد</a>
+      <a class="nav-item" href="/?cat=mawasim">مواسم ومجتمع</a>
+      <a class="nav-item" href="/?cat=idarah">إدارة وتربية</a>
+    </div>
+  </nav>
+
+  <!-- breadcrumb -->
+  <div class="crumb">
+    <a href="/">الرئيسية</a><span class="sep">›</span>
+    <a href="/?cat=siyasah">سياسة واقتصاد</a><span class="sep">›</span>
+    <span class="current">أعداد وزارية</span>
+  </div>
+
+  <!-- article head -->
+  <header class="article-head">
+    <div class="kicker"><span class="line"></span><span class="label">سياسة واقتصاد</span></div>
+    <h1>أعداد وزارية</h1>
+    <p class="lede">قراءة في التعيينات الوزارية الأخيرة ومدلولاتها على بنية القرار، وفي ما تخفيه من تحوّلات في موازين الإدارة والسياسة.</p>
+
+    <div class="article-meta">
+      <div class="author">
+        <div class="portrait"><img src="https://pbs.twimg.com/profile_images/1851248011503935488/he5MabI6_400x400.jpg" alt="أحمد العسَّاف"></div>
+        <span class="name">أحمد العسَّاف</span>
+      </div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><b>٢٥ أبريل ٢٠٢٦</b></div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><b>٧ دقائق قراءة</b></div>
+      <div class="item"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg></span><b>١٬٦٤٠ كلمة</b></div>
+    </div>
+  </header>
+
+  <!-- TTS voice reader — CSS only; JS wired in Phase 8 -->
+  <div class="tts-player" id="ttsPlayer">
+    <div class="inner">
+      <button class="play-btn" id="ttsPlayBtn" aria-label="استمع للمقال">
+        <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <div class="info">
+        <b>استمع للمقال</b>
+        <span class="sub">قراءة صوتيَّة بصوت اصطناعي ـ تقريباً ٧ دقائق</span>
+      </div>
+      <div class="progress-bar" id="ttsProgress"><div class="filled" id="ttsFilled"></div></div>
+      <button class="speed" id="ttsSpeed">١٫٠×</button>
+      <span class="err-note">القراءة الصوتيَّة غير مدعومة في هذا المتصفِّح</span>
+    </div>
+  </div>
+
+  <!-- featured image -->
+  <div class="featured-img">
+    <div class="wrap">
+      <img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=1800&auto=format&q=85" alt="">
+    </div>
+    <div class="caption">صورة من جلسة مجلس الوزراء ـ المصدر: هيئة الصور.</div>
+  </div>
+
+  <!-- body with TOC -->
+  <div class="article-body-wrap">
+
+    <!-- TOC -->
+    <aside class="toc" aria-label="عناوين المقال">
+      <div class="label">عناوين المقال</div>
+      <ol>
+        <li class="active"><a href="#s1">مقدِّمة</a></li>
+        <li><a href="#s2">أرقامٌ وأعداد</a></li>
+        <li><a href="#s3">ماذا تعني هذه التعيينات؟</a></li>
+        <li><a href="#s4">ملاحظاتٌ ختاميَّة</a></li>
+      </ol>
+    </aside>
+
+    <!-- main content -->
+    <article class="article-content">
+
+      <p>صدرت الأوامر الملكيَّة الكريمة هذا الأسبوع بتعيين عددٍ من الوزراء وكبار المسؤولين، وكأنَّ الأمر بات تقليداً معتاداً في كلِّ موسم. لكن وراء كلِّ تعيينٍ قراءةً، ووراء كلِّ موسمٍ من التعيينات قراءةً للقراءات. وفي هذه السطور أحاول أن أقرأ ما وراء الأعداد، لا الأعداد ذاتها.</p>
+
+      <p>ليست الإدارة العامَّة في بلادنا حقلاً قاحلاً، بل هي ميدانٌ خصبٌ من ميادين الفكر السياسي العربي الحديث. وما يمرُّ على الأذن من <a href="#">تعيينٍ</a> أو إعفاء، هو في الحقيقة <em>قرارٌ مدروس</em> له ما قبله وما بعده.</p>
+
+      <h2 id="s1">مقدِّمة</h2>
+
+      <p>منذ أن بدأت متابعة الشأن العام، كنت أحرص على قراءة كلِّ تعيينٍ وزاريٍّ في سياقه، لا في معزلٍ عنه. فالتعيين ليس حدثاً قائماً بذاته، بل هو حلقةٌ في سلسلةٍ طويلة من القرارات التي تشكِّل ـ شيئاً فشيئاً ـ ملامح المرحلة.</p>
+
+      <p>وقد لاحظتُ في السنوات الأخيرة تحوُّلاً واضحاً في طبيعة التعيينات: من اعتماد الكفاءات التقليديَّة إلى تشجيع الكفاءات الشابَّة. ومن الاحتفاء بالخبرة المتراكمة إلى الإيمان بالطاقة المتجدِّدة. وهذا تحوُّلٌ <a href="#">يستحقُّ التأمُّل</a>، لا الاستهجان ولا التبجيل.</p>
+
+      <h2 id="s2">أرقامٌ وأعداد</h2>
+
+      <p>إذا نظرنا إلى الأعداد المطلقة في موجة التعيينات الأخيرة، نجد أنَّ متوسِّط أعمار الوزراء الجدد قد انخفض بنحو ثماني سنواتٍ مقارنةً بالعقد الماضي. وأنَّ نسبة الحاصلين على درجاتٍ علميَّةٍ من جامعاتٍ غير محليَّةٍ قد ارتفعت إلى ما يزيد على خمسةٍ وستِّين بالمئة.</p>
+
+      <ul>
+        <li>متوسِّط العمر: <strong>تسعةٌ وأربعون عاماً</strong> (مقابل سبعةٍ وخمسين قبل عقد).</li>
+        <li>الحاصلون على درجاتٍ من جامعاتٍ خارج الوطن: <strong>٦٧٪</strong>.</li>
+        <li>عدد الذين تولَّوا مناصب وزاريَّة لأوَّل مرَّة: <strong>أحد عشر من أصل ستَّة عشر</strong>.</li>
+      </ul>
+
+      <p>هذه الأرقام لا تُقرأ مفردةً. فهي ـ مجتمعةً ـ ترسم صورةً لتوجُّهٍ إداريٍّ يُؤثر التجديد على التراكم. وقد يكون ذلك مبرَّراً في مرحلةٍ تتطلَّب الإسراع في الإصلاح، أو غير مبرَّرٍ في مرحلةٍ تحتاج إلى الحكمة قبل السرعة.</p>
+
+      <div class="pull-quote">
+        <p>الكفاءة لا تُقاس بالعمر وحده، ولكنَّ الخبرة <em>لا تُختزل</em> في الشهادة. وما بين الاثنين تقع <b>دقائق الإدارة العامَّة</b> ـ وهي دقائق صعبة.</p>
+      </div>
+
+      <h2 id="s3">ماذا تعني هذه التعيينات؟</h2>
+
+      <p>التعيين الوزاريُّ ليس مجرَّد تكليفٍ بمنصب، بل هو إشارةٌ إلى توجُّهٍ، وإعلانٌ عن أولويَّة، ورسالةٌ تُقرأ من داخل الإدارة العامَّة وخارجها. وفي قراءة هذه الإشارات تكمن مفاتيح فهم المرحلة.</p>
+
+      <h3>أوَّلاً: في الأولويَّات</h3>
+      <p>عندما يُعيَّن وزيرٌ من خلفيَّةٍ تقنيَّةٍ في حقيبةٍ كانت تقليديَّاً تُسند إلى ذوي الخبرة الإداريَّة الطويلة، فإنَّ ذلك مؤشِّرٌ على أنَّ القائمين على الأمر يرون في التحديث التقنيِّ أولويَّةً تتقدَّم على الاستمراريَّة الإداريَّة.</p>
+
+      <h3>ثانياً: في التوازنات</h3>
+      <p>وعندما تتنوَّع خلفيَّات الوزراء الجدد بين أكاديميَّةٍ وعمليَّةٍ وقطاعٍ خاصٍّ، فإنَّ ذلك يعكس <a href="#">إيماناً بالتعدُّديَّة</a> في صناعة القرار، لا الاكتفاء بمصدرٍ واحدٍ من مصادر الكفاءة.</p>
+
+      <h2 id="s4">ملاحظاتٌ ختاميَّة</h2>
+
+      <p>لا أعرف تماماً ما يحمله المستقبل، ولا أحبُّ التنبُّؤ بنتائج قراراتٍ لم تختبر بعد. ولكنَّني أعرف أنَّ المتابع للشأن العامِّ لا بدَّ له من قراءة الأرقام في سياقاتها، ومن تأمُّل التعيينات لا في يوم صدورها، بل بعد سنواتٍ من حيث آثرها على ميدان الإدارة.</p>
+
+      <p>ولعلَّي أعود إلى هذه التعيينات بعد عام، أو عامين، لأقرأ النتائج لا الأعداد. فالحكم على القرار يأتي بعد رؤية الأثر، لا بعد قراءة الإعلان.</p>
+
+    </article>
+
+    <!-- right gutter share dots — scaffold for Phase 9 -->
+    <aside class="gutter">
+      <div class="gutter-share">
+        <span class="lbl">شارك</span>
+        <button aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></button>
+        <button aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg></button>
+        <button aria-label="Telegram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m9.417 15.181-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931L23.93 3.821l.001-.001c.321-1.496-.541-2.081-1.527-1.714L1.114 10.27c-1.45.564-1.428 1.374-.247 1.741l5.418 1.687 12.585-7.918c.581-.385 1.109-.171.694.171Z"/></svg></button>
+        <button aria-label="نسخ الرابط" id="copyTop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </aside>
+
+  </div>
+
+  <span class="copied" id="copiedNote" style="display:none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 20px; font-family: var(--font-ui); font-weight: 600; font-size: 14px; z-index: 200;">تمَّ نسخ الرابط ✓</span>
+
+  <!-- author card -->
+  <section class="author-card">
+    <div class="inner">
+      <div class="portrait"><img src="https://pbs.twimg.com/profile_images/1851248011503935488/he5MabI6_400x400.jpg" alt="أحمد العسَّاف"></div>
+      <div class="stack">
+        <div class="label">المؤلف</div>
+        <h3 class="name">أحمد بن عبد المحسن العسَّاف</h3>
+        <p class="bio">كاتب ومدوِّن سعودي ـ يكتب في القراءة والكتابة والسير والشأن العام منذ ٢٠٠٨. له أكثر من مئةٍ وعشرين مقالاً.</p>
+        <div class="links">
+          <a href="/about.html">تعريف بالمؤلف</a>
+          <a href="/">كل مقالاته</a>
+          <a href="#">تابع على إكس</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- related articles -->
+  <section class="related-section">
+    <div class="related-h">
+      <h2>من القسم نفسه</h2>
+      <span class="label">سياسة واقتصاد</span>
+    </div>
+    <div class="related-grid">
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">عن الاقتصاد الريعي</h3>
+        <div class="meta">٢ فبراير ٢٠٢٤ ـ ١٠ دقائق</div>
+      </article>
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">في معنى السياسة العامَّة</h3>
+        <div class="meta">٢١ نوفمبر ٢٠٢٣ ـ ٨ دقائق</div>
+      </article>
+      <article class="related-card">
+        <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1568667256549-094345857637?w=600&auto=format&q=85')"></div>
+        <div class="cat">سياسة واقتصاد</div>
+        <h3 class="title">قراءة في «نظام الحكم» للماوردي</h3>
+        <div class="meta">٣ أكتوبر ٢٠٢٥ ـ ٩ دقائق</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- comments section — scaffold; Phase 9 wires up submission JS -->
+  <section class="comments-section">
+    <div class="comments-h">
+      <h2>التعليقات</h2>
+      <span class="count"><b>٤</b> تعليقات على هذا المقال</span>
+    </div>
+
+    <!-- comment form -->
+    <form class="comment-form" onsubmit="event.preventDefault();">
+      <h3>أضِف تعليقاً</h3>
+      <p class="desc">كل تعليقٍ يخضع للمراجعة قبل النشر. نرحِّب بالنقاش المهذَّب.</p>
+
+      <div class="row">
+        <div class="field">
+          <label>الاسم</label>
+          <input type="text" placeholder="اسمك الكريم">
+        </div>
+        <div class="field">
+          <label>البريد الإلكتروني <span class="opt">(اختياري ـ لن يُنشر)</span></label>
+          <input type="email" placeholder="example@email.com" dir="ltr">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>تعليقك</label>
+        <textarea placeholder="اكتب تعليقك هنا..."></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn" type="submit">أرسل التعليق ←</button>
+        <span class="note">سيظهر تعليقك بعد المراجعة.</span>
+      </div>
+    </form>
+
+    <!-- existing comments -->
+    <div class="comment-list">
+
+      <div class="comment">
+        <div class="avatar">س</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">سعد القحطاني</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">قراءةٌ موفَّقة كعادتك أبا عبد المحسن. تأمَّلت معك في الأعداد والأرقام، وأضيف ملاحظةً على نقطة الكفاءات الشابَّة: العبرة ليست بالعمر، بل بالاستعداد لتحمُّل المسؤوليَّة، وكثيرٌ من الكبار سنّاً تنقصهم تلك الجاهزيَّة.</p>
+          <div class="actions">
+            <a href="#">ردّ</a>
+            <a href="#">إعجاب · ٣</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment author-reply reply">
+        <div class="avatar">ع</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">أحمد العسَّاف</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">شكراً أبا فهد على هذه الملاحظة، وأنت محقٌّ تماماً ـ فالاستعداد النفسي والمهني هو الفيصل، لا العمر وحده. وكتبتُ هذه السطور تحديداً لأنبِّه إلى الخلط الذي يقع فيه بعض الكتَّاب بين «التجديد» و«تشبيب الأعمار»، وهما ليسا مترادفين.</p>
+          <div class="actions">
+            <a href="#">إعجاب · ٢</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar">ن</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">نورة الهاجري</span>
+            <span class="date">٢٦ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">المقال يطرح تساؤلاً مهمَّاً عن العلاقة بين الجامعات الخارجيَّة والقدرة على فهم السياق المحليِّ. هل سنرى تحليلاً مفصَّلاً لهذه النقطة في مقالٍ قادم؟</p>
+          <div class="actions">
+            <a href="#">ردّ</a>
+            <a href="#">إعجاب · ١</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment">
+        <div class="avatar">م</div>
+        <div class="body-wrap">
+          <div class="head">
+            <span class="name">محمد الدوسري</span>
+            <span class="date">٢٧ أبريل ٢٠٢٦</span>
+          </div>
+          <p class="body">نقاطٌ ختاميَّة تستحقُّ التوقُّف. سأعود لقراءة المقال مرَّةً أخرى بعد عام، كما اقترحتَ، لأرى أيُّنا كان أصدق قراءةً للمشهد.</p>
+          <div class="actions">
+            <a href="#">ردّ</a>
+            <a href="#">إعجاب</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-top">
+        <div class="foot-brand-row">
+          <div class="foot-mono-sm">ع</div>
+          <div class="foot-brand">العَسَّاف</div>
+        </div>
+        <div style="font-family: var(--font-body); font-style: italic; opacity: .8;">مدوَّنة في القراءة، الكتابة، والسير ـ منذ ٢٠٠٨.</div>
+      </div>
+      <div class="foot-bottom">
+        <span>© ٢٠٠٨ — ٢٠٢٦ ahmalassaf.com</span>
+        <span>بخطوط القاهرة ـ أميري ـ عرف رقعة</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/site.js" defer></script>
+</body>
+</html>

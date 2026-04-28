@@ -268,6 +268,44 @@
     });
   };
 
+  // ============ READING PROGRESS BAR ============
+  const initReadingProgress = () => {
+    const bar = document.getElementById('rp');
+    if (!bar) return;
+    const update = () => {
+      const h = document.documentElement;
+      const denom = (h.scrollHeight - h.clientHeight) || 1;
+      const pct = (window.scrollY / denom) * 100;
+      bar.style.width = pct + '%';
+    };
+    document.addEventListener('scroll', update, { passive: true });
+    update();
+  };
+
+  // ============ TOC SCROLL-SPY ============
+  const initTocScrollSpy = () => {
+    const items = document.querySelectorAll('.toc li');
+    if (!items.length) return;
+    const headings = Array.from(items).map(li => {
+      const a = li.querySelector('a');
+      return a ? document.getElementById(a.getAttribute('href').slice(1)) : null;
+    });
+    const update = () => {
+      const top = window.scrollY + 100;
+      let active = 0;
+      headings.forEach((h, i) => { if (h && h.offsetTop <= top) active = i; });
+      items.forEach((it, i) => it.classList.toggle('active', i === active));
+    };
+    document.addEventListener('scroll', update, { passive: true });
+    document.querySelectorAll('.toc a').forEach(a => a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const t = document.getElementById(id);
+      if (t) window.scrollTo({ top: t.offsetTop - 100, behavior: 'smooth' });
+    }));
+    update();
+  };
+
   // expose helpers/state on a namespace; later init functions extend it
   window.AHMALASSAF = { toAr };
 
@@ -276,5 +314,7 @@
     initArchiveFilter();
     initFormSuccessStates();
     initSearchPopover();
+    initReadingProgress();
+    initTocScrollSpy();
   });
 })();
