@@ -598,7 +598,7 @@ a.essay:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .related-h h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; margin: 0; color: var(--ink); }
 .related-h .label { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold-deep); }
 .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
-.related-card { cursor: pointer; transition: transform .25s; }
+.related-card { cursor: pointer; transition: transform .25s; text-decoration: none; color: inherit; }
 .related-card:hover { transform: translateY(-3px); }
 .related-card .thumb { aspect-ratio: 4/3; background: var(--ink) center/cover no-repeat; margin-bottom: 14px; overflow: hidden; }
 .related-card .cat { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--gold-deep); margin-bottom: 4px; }
