@@ -311,7 +311,8 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .filter-item.all { padding-bottom: 14px; margin-bottom: 8px; border-bottom: 1px solid rgba(201,151,79,.2); font-size: 16px; }
 .menu-label.years { margin-top: 32px; }
 
-.essay { display: grid; grid-template-columns: 60px 1fr 200px; gap: 28px; padding: 24px 0; border-top: 1px solid rgba(74,74,74,.1); align-items: center; cursor: pointer; transition: padding .25s, background .25s; }
+.essay { display: grid; grid-template-columns: 60px 1fr 200px; gap: 28px; padding: 24px 0; border-top: 1px solid rgba(74,74,74,.1); align-items: center; cursor: pointer; transition: padding .25s, background .25s; text-decoration: none; color: inherit; }
+a.essay:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .essay.first-visible { border-top: 0; }
 .essay:hover { padding-right: 12px; background: linear-gradient(to left, transparent, rgba(201,151,79,.06)); }
 .essay:hover .essay-num { color: var(--gold-deep); }
@@ -597,7 +598,7 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .related-h h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; margin: 0; color: var(--ink); }
 .related-h .label { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--gold-deep); }
 .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
-.related-card { cursor: pointer; transition: transform .25s; }
+.related-card { cursor: pointer; transition: transform .25s; text-decoration: none; color: inherit; }
 .related-card:hover { transform: translateY(-3px); }
 .related-card .thumb { aspect-ratio: 4/3; background: var(--ink) center/cover no-repeat; margin-bottom: 14px; overflow: hidden; }
 .related-card .cat { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--gold-deep); margin-bottom: 4px; }
