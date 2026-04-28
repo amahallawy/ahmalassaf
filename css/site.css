@@ -6,7 +6,7 @@
      - Reset
      - Base body
      - Reduced motion
-     - Focus rings
+     - Focus rings (universal + component overrides)
      - sr-only utility
      - .container utility
      - Inner-page utilities (.page-title, .page-body, .page-back)
@@ -117,10 +117,25 @@ body {
   }
 }
 
-/* ===== focus rings ===== */
+/* ===== focus rings (universal + component overrides) ===== */
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
+}
+
+.carousel:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: -3px;
+}
+
+.filter-item:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.nav-item:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -4px;
 }
 
 /* ===== visually hidden (sr-only) ===== */
@@ -312,7 +327,6 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .menu-label.years { margin-top: 32px; }
 
 .essay { display: grid; grid-template-columns: 60px 1fr 200px; gap: 28px; padding: 24px 0; border-top: 1px solid rgba(74,74,74,.1); align-items: center; cursor: pointer; transition: padding .25s, background .25s; text-decoration: none; color: inherit; }
-a.essay:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .essay.first-visible { border-top: 0; }
 .essay:hover { padding-right: 12px; background: linear-gradient(to left, transparent, rgba(201,151,79,.06)); }
 .essay:hover .essay-num { color: var(--gold-deep); }
