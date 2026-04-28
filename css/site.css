@@ -36,6 +36,10 @@
      - Related articles
      - Comments (form + list)
      - Copy-link toast
+
+   RESPONSIVE
+     - Post page collapses at <=1024px (article body, TOC, gutter, related, author, comment-form)
+     - Home page collapses at <768px (archive layout, about grid, contact grid, essay rows)
 ============================================================ */
 
 /* ============================================================
@@ -685,4 +689,13 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
   .related-grid { grid-template-columns: 1fr; }
   .author-card .inner { grid-template-columns: 1fr; }
   .comment-form .row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .archive-layout { grid-template-columns: 1fr; gap: 32px; }
+  .side-menu { position: static; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .essay { grid-template-columns: 48px 1fr; gap: 16px; }
+  .essay-meta { grid-column: 1 / -1; padding-top: 8px; }
 }
