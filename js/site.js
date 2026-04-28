@@ -420,6 +420,43 @@
     });
   };
 
+  // ============ COPY LINK + TOAST ============
+  const initCopyLink = () => {
+    const note = document.getElementById('copiedNote');
+    if (!note) return;
+    const showToast = () => {
+      note.classList.add('show');
+      setTimeout(() => note.classList.remove('show'), 2000);
+    };
+    document.querySelectorAll('[data-copy-link]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard?.writeText(window.location.href);
+        showToast();
+      });
+    });
+  };
+
+  // ============ COMMENT FORM SUCCESS ============
+  const initCommentForm = () => {
+    const form = document.querySelector('.comment-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Replace the form content with a small success block
+      form.innerHTML = `
+        <div style="text-align:center; padding: 28px 16px;">
+          <div style="width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: var(--blue); border: 2px solid var(--gold); color: var(--paper); display: flex; align-items: center; justify-content: center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 22px; margin: 0 0 8px; color: var(--ink);">تمَّ استلام تعليقك</h3>
+          <p style="font-family: var(--font-body); font-style: italic; font-size: 15px; color: var(--ink-soft); margin: 0;">
+            سيظهر بعد المراجعة. شكراً.
+          </p>
+        </div>
+      `;
+    });
+  };
+
   // expose helpers/state on a namespace; later init functions extend it
   window.AHMALASSAF = { toAr };
 
@@ -431,5 +468,7 @@
     initReadingProgress();
     initTocScrollSpy();
     initTts();
+    initCopyLink();
+    initCommentForm();
   });
 })();
