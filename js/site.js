@@ -306,6 +306,120 @@
     update();
   };
 
+  // ============ TTS VOICE READER ============
+  const initTts = () => {
+    const player = document.getElementById('ttsPlayer');
+    if (!player) return;
+    const playBtn = document.getElementById('ttsPlayBtn');
+    const speedBtn = document.getElementById('ttsSpeed');
+    const filled = document.getElementById('ttsFilled');
+    const progress = document.getElementById('ttsProgress');
+
+    if (!('speechSynthesis' in window)) {
+      player.classList.add('unsupported');
+      return;
+    }
+
+    if (!playBtn || !speedBtn || !filled || !progress) return;
+
+    const synth = window.speechSynthesis;
+    const speeds = [0.85, 1.0, 1.25, 1.5];
+    const speedLabels = ['٠٫٨٥×', '١٫٠×', '١٫٢٥×', '١٫٥×'];
+    let speedIdx = 1;
+    let chunks = [];
+    let currentChunk = 0;
+    let totalChunks = 0;
+    let isPlaying = false;
+    let generation = 0; // incremented when cancelling so stale callbacks reject
+
+    const getChunks = () =>
+      Array.from(document.querySelectorAll('.article-content p, .article-content h2, .article-content h3, .article-content blockquote p, .article-content .pull-quote p, .article-content li'))
+        .map(el => el.textContent.trim())
+        .filter(t => t.length > 0);
+
+    const updateProgress = () => {
+      const pct = totalChunks > 0 ? (currentChunk / totalChunks) * 100 : 0;
+      filled.style.width = pct + '%';
+    };
+
+    const speakNext = () => {
+      if (currentChunk >= chunks.length) {
+        isPlaying = false;
+        player.classList.remove('playing');
+        currentChunk = 0;
+        updateProgress();
+        return;
+      }
+      const myGen = generation;
+      const u = new SpeechSynthesisUtterance(chunks[currentChunk]);
+      u.lang = 'ar-SA';
+      u.rate = speeds[speedIdx];
+      u.onend   = () => {
+        if (myGen !== generation) return; // stale (cancelled by speed change or seek)
+        currentChunk++; updateProgress(); if (isPlaying) speakNext();
+      };
+      u.onerror = () => {
+        if (myGen !== generation) return; // stale
+        currentChunk++; if (isPlaying) speakNext();
+      };
+      synth.speak(u);
+    };
+
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        if (synth.paused) {
+          synth.resume();
+        } else {
+          chunks = getChunks();
+          totalChunks = chunks.length;
+          currentChunk = 0;
+          speakNext();
+        }
+        isPlaying = true;
+        player.classList.add('playing');
+      } else {
+        synth.pause();
+        isPlaying = false;
+        player.classList.remove('playing');
+      }
+    });
+
+    speedBtn.addEventListener('click', () => {
+      speedIdx = (speedIdx + 1) % speeds.length;
+      speedBtn.textContent = speedLabels[speedIdx];
+      if (isPlaying) {
+        generation++;
+        synth.cancel();
+        speakNext();
+      }
+    });
+
+    progress.addEventListener('click', (e) => {
+      if (totalChunks === 0) return;
+      const rect = progress.getBoundingClientRect();
+      // RTL: progress visually fills from the right edge
+      const pct = 1 - ((e.clientX - rect.left) / rect.width);
+      currentChunk = Math.min(Math.floor(pct * totalChunks), totalChunks - 1);
+      if (isPlaying) {
+        generation++;
+        synth.cancel();
+        speakNext();
+      } else {
+        updateProgress();
+      }
+    });
+
+    // stop on page hidden (tab switch, etc.)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && isPlaying) {
+        generation++;
+        synth.cancel();
+        isPlaying = false;
+        player.classList.remove('playing');
+      }
+    });
+  };
+
   // expose helpers/state on a namespace; later init functions extend it
   window.AHMALASSAF = { toAr };
 
@@ -316,5 +430,6 @@
     initSearchPopover();
     initReadingProgress();
     initTocScrollSpy();
+    initTts();
   });
 })();
