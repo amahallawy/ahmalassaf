@@ -263,7 +263,7 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .slide .meta-rule.short { width: 36px; flex: 0 0 36px; }
 .slide .meta { font-family: var(--font-body); font-style: italic; font-size: 14px; opacity: .9; line-height: 1.5; }
 .slide .meta b { font-style: normal; font-family: var(--font-ui); font-weight: 700; }
-.arrows { position: absolute; inset: 0 24px 0 24px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.arrows { position: absolute; inset: 0 24px 0 24px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; z-index: 3; }
 .arrows button { pointer-events: auto; background: rgba(15,25,45,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--gold); color: var(--paper); width: 48px; height: 48px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: background .3s, transform .3s, border-color .3s; font-family: var(--font-ui); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.3); }
 .arrows button:hover { background: var(--blue); transform: scale(1.06); border-color: var(--gold); }
 .thumb-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 6; }
