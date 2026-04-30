@@ -417,7 +417,7 @@ footer::after { content: ''; position: absolute; inset: 0; pointer-events: none;
 .form-field textarea { min-height: 140px; }
 
 .form-submit { display: flex; gap: 16px; align-items: center; margin-top: 24px; flex-wrap: wrap; }
-.btn-primary { font-family: var(--font-ui); font-weight: 700; font-size: 14px; padding: 14px 32px; background: var(--blue); color: var(--paper); border: 1px solid var(--gold); cursor: pointer; transition: all .25s; letter-spacing: .3px; }
+.btn-primary { font-family: var(--font-ui); font-weight: 700; font-size: 14px; padding: 14px 32px; background: var(--blue); color: var(--paper); border: 1px solid var(--gold); cursor: pointer; transition: all .25s; letter-spacing: .3px; display: inline-flex; align-items: center; gap: 10px; }
 .btn-primary:hover { background: var(--gold); border-color: var(--blue); }
 .form-note { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--ink-soft); }
 
